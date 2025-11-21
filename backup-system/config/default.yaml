@@ -1,5 +1,0 @@
-profile: default
-source: /home/user/documents
-destination: /backup/default
-compression: tar.gz
-retention: 5

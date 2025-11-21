@@ -1,8 +1,0 @@
-profile: document
-source: ./document
-destination: ./backups/document
-compression: tar.gz
-retention: 5
-exclude:
-  - "*.tmp"
-  - "cache/"

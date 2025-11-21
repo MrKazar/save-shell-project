@@ -1,8 +1,0 @@
-profile: backup
-source: ./backup
-destination: ./backups/backup
-compression: tar.gz
-retention: 5
-exclude:
-  - "*.tmp"
-  - "cache/"

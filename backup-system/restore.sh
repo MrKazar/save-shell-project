@@ -1,77 +1,137 @@
 #!/bin/bash
-
-# =====================
-# Script de restauration
-# =====================
+set -euo pipefail
 
 source lib/utils.sh
+source lib/usage.sh
+
+# Initialiser les logs
+init_logs "restore"
+log_session_start
 
 # =====================
 # Parsing des arguments
 # =====================
-parse_args() {
-    while [[ $# -gt 0 ]]; do
-        case "$1" in
-            --profile)
-                PROFILE="$2"
-                shift 2
-                ;;
-            --file)
-                FILE_TO_RESTORE="$2"
-                shift 2
-                ;;
-            --date)
-                DATE="$2"
-                shift 2
-                ;;
-            *)
-                echo "Argument inconnu : $1"
-                exit 1
-                ;;
-        esac
-    done
+PROFILE=""
+FILE_TO_RESTORE=""
+DRY_RUN=false
 
-    if [[ -z "$PROFILE" ]]; then
-        echo "Erreur : --profile obligatoire"
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --profile)
+            PROFILE="$2"
+            shift 2
+            ;;
+        --file)
+            FILE_TO_RESTORE="$2"
+            shift 2
+            ;;
+        --dry-run)
+            DRY_RUN=true
+            shift
+            ;;
+        *)
+            log ERROR "Argument inconnu : $1"
+            exit 1
+            ;;
+    esac
+done
+
+if [[ -z "$PROFILE" ]]; then
+    log ERROR "--profile obligatoire"
+    exit 1
+fi
+
+log INFO "Démarrage de la restauration - Profil: $PROFILE"
+
+SRC_DIR=$(get_config "$PROFILE" "source") || { log ERROR "Impossible de lire la configuration"; exit 1; }
+DST_DIR=$(get_config "$PROFILE" "destination") || { log ERROR "Impossible de lire la configuration"; exit 1; }
+
+log INFO "Source: $SRC_DIR, Archives: $DST_DIR"
+
+# =====================
+# Trouver la dernière archive FULL
+# =====================
+get_last_full() {
+    local last_full
+    last_full=$(ls -1t "$DST_DIR/FULL"/*.tar.gz 2>/dev/null | head -n1 || true)
+    echo "$last_full"
+}
+
+# =====================
+# Restauration complète
+# =====================
+restore_full() {
+    local archive
+    archive=$(get_last_full)
+
+    if [[ -z "$archive" ]]; then
+        log ERROR "Aucune archive FULL trouvée dans $DST_DIR/FULL"
         exit 1
+    fi
+
+    log INFO "Restauration complète depuis $(basename "$archive")"
+
+    if [[ "$DRY_RUN" = true ]]; then
+        log WARN "[DRY-RUN] Mode de test activé"
+        tar -tzf "$archive" | head -20
+        log INFO "[DRY-RUN] Aucun fichier n'a été restauré."
+    else
+        # Créer le dossier parent si nécessaire
+        mkdir_safe "$(dirname "$SRC_DIR")"
+        
+        if tar -xzf "$archive" -C "$(dirname "$SRC_DIR")" 2>/dev/null; then
+            log SUCCESS "Restauration complète terminée."
+        else
+            log ERROR "Échec de la restauration"
+            return 1
+        fi
     fi
 }
 
 # =====================
-# Restauration d’un fichier ou d’un dossier
+# Restauration sélective
 # =====================
 restore_file() {
-    log "Début de la restauration pour profil $PROFILE"
+    local file="$1"
+    local restored=false
 
-    src=$(get_config "$PROFILE" "destination")
+    log INFO "Recherche du fichier $file dans les archives"
 
-    if [[ -n "$DATE" ]]; then
-        archive=$(ls "$src" | grep "$DATE")
-        if [[ -z "$archive" ]]; then
-            echo "Aucune archive trouvée pour la date $DATE"
-            exit 1
-        fi
-    else
-        # Dernière archive
-        archive=$(ls -1 "$src" | sort | tail -n1)
-    fi
+    for type in FULL INC DIFF; do
+        [[ ! -d "$DST_DIR/$type" ]] && continue
+        for archive in "$DST_DIR/$type"/*.tar.gz; do
+            [[ -f "$archive" ]] || continue
+            if tar -tzf "$archive" | grep -q "^./$(basename "$file")$"; then
+                log INFO "Fichier trouvé dans $type : $(basename "$archive")"
+                if [[ "$DRY_RUN" = true ]]; then
+                    log WARN "[DRY-RUN] $file serait restauré depuis $archive"
+                else
+                    if tar -xzf "$archive" -C "$SRC_DIR" "./$(basename "$file")" 2>/dev/null; then
+                        log SUCCESS "Fichier $file restauré avec succès"
+                        restored=true
+                    else
+                        log ERROR "Échec de restauration du fichier $file"
+                        return 1
+                    fi
+                fi
+                return
+            fi
+        done
+    done
 
-    if [[ -n "$FILE_TO_RESTORE" ]]; then
-        tar -xzf "$src/$archive" -C ./restored "$FILE_TO_RESTORE"
-        log "Fichier restauré : $FILE_TO_RESTORE"
-    else
-        mkdir -p ./restored
-        tar -xzf "$src/$archive" -C ./restored
-        log "Restauration complète effectuée"
+    if [[ "$restored" = false ]]; then
+        log ERROR "Fichier $file introuvable dans les archives"
+        exit 1
     fi
 }
 
 # =====================
 # Main
 # =====================
-main() {
-    parse_args "$@"
-    restore_file
-}
+if [[ -n "$FILE_TO_RESTORE" ]]; then
+    restore_file "$FILE_TO_RESTORE"
+else
+    restore_full
+fi
 
-main "$@"
+log SUCCESS "Restauration terminée (logs : $LOG_FILE)"

@@ -212,4 +212,68 @@ git push origin main
 
 ---
 
+## 🌐 Serveur Web de Synchronisation
+
+### Nouveau : Backup Server Flask
+
+Le projet inclut maintenant un **serveur web Python Flask** qui permet de :
+
+- ✅ Recevoir les backups depuis les scripts shell
+- ✅ Lister les backups stockés
+- ✅ Vérifier la synchronisation local/distant
+- ✅ Calculer les hash MD5 pour l'intégrité
+- ✅ Générer des métadonnées JSON
+
+### Démarrage rapide
+
+```bash
+# Terminal 1 : Lancer le serveur
+./start-server.sh
+
+# Terminal 2 : Créer et uploader les backups
+cd backup-system
+./backup.sh --profile document --type full
+./upload.sh document --all
+
+# Terminal 2 : Vérifier la synchronisation
+./verify_sync.sh
+./verify_sync.sh --stats
+```
+
+### Structure du serveur
+
+```
+serv/backup-server/
+├── app.py                Application Flask
+├── requirements.txt      Dépendances Python
+├── remote_backups/       Backups reçus
+│   ├── FULL/
+│   ├── INC/
+│   └── DIFF/
+└── README.md            Documentation du serveur
+```
+
+### Endpoints API disponibles
+
+- `GET /` - Informations API
+- `POST /upload` - Uploader un backup
+- `GET /list` - Lister tous les backups
+- `GET /list/<type>` - Lister par type (FULL|INC|DIFF)
+- `POST /verify` - Vérifier la synchronisation
+- `GET /stats` - Statistiques du serveur
+
+### Scripts d'intégration
+
+- `backup-system/upload.sh` - Uploader les backups
+- `backup-system/verify_sync.sh` - Vérifier la synchronisation
+- `start-server.sh` - Démarrer le serveur facilement
+
+---
+
+## 📚 Documentation complète
+
+Voir **[USAGE_GUIDE.md](USAGE_GUIDE.md)** pour un guide d'utilisation complet avec exemples.
+
+---
+
 Créé par **MrKazar** - 2025

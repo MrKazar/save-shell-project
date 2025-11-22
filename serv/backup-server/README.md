@@ -181,4 +181,4 @@ gunicorn -w 4 -b 0.0.0.0:5000 app:app
 
 ---
 
-Créé par **MrKazar** - 2025
+Créé par **MrKazar**, **VikusCode** et **NDesumeur**- 2025

@@ -76,6 +76,7 @@ sudo apt install python3 python3-flask curl jq
 
 ```bash
 ./demo.sh
+```
 
 ## Auteurs
 **MrKazar**, **VikusCode** et **NDesumeur**

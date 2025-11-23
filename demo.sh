@@ -383,6 +383,7 @@ cat << 'EOF'
 ║  ✓ Restauration sélective d'un fichier                       ║
 ║  ✓ Upload vers serveur distant (optionnel)                   ║
 ║  ✓ Vérification de synchronisation (optionnel)               ║
+║  ✓ Téléchargement depuis le serveur (optionnel)              ║
 ║                                                              ║
 ║  Le système est prêt à l'emploi !                            ║
 ║                                                              ║

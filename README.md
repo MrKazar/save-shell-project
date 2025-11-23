@@ -318,27 +318,6 @@ crontab -e
 0 4 * * * cd /chemin/vers/backup-system && ./verify_sync.sh >> /tmp/backup_verify.log 2>&1
 ```
 
-## Corrections Apportées
-
-Ce projet inclut plusieurs corrections importantes par rapport à la version originale :
-
-### Bugs Corrigés
-
-1. **Bug critique du snapshot incremental** : Le snapshot n'est plus écrasé lors des backups incrémentaux, il pointe toujours vers le dernier FULL
-2. **Logique DIFF incorrecte** : Utilise maintenant `find -newer` comme INCREMENTAL
-3. **Portabilité stat** : Supporte à la fois Linux (stat -c) et BSD/Mac (stat -f)
-4. **Bug ((variable++)) avec set -e** : Remplacé par `variable=$((variable + 1))`
-5. **Extraction fichier unique** : Extraction dans dossier temporaire puis copie
-6. **Génération JSON dans verify_sync** : Syntaxe JSON corrigée
-
-### Améliorations
-
-1. **Vraie vérification de checksum** : Calcul MD5 réel au lieu de simple vérification d'archive
-2. **Restauration complète** : Applique automatiquement FULL + tous les INC + tous les DIFF
-3. **Métadonnées enrichies** : Ajout du checksum MD5 et du parent
-4. **Download depuis serveur** : Nouvelle fonctionnalité absente de la version originale
-5. **Nettoyage du serveur** : Script dédié pour nettoyer les backups distants
-
 ## Auteurs
 
 **MrKazar**, **VikusCode** et **NDesumeur**

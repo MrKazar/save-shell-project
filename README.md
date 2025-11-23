@@ -1,279 +1,344 @@
-# 📦 BACKUP SYSTEM - Projet Shell
+# Système de Backup Automatique
 
-## 📋 Description
+Système complet de sauvegarde en Bash avec synchronisation via serveur Flask.
 
-Système de sauvegarde complet en Bash avec support de trois types de backups :
-  - ✅ **FULL** (complet) - Sauvegarde complète de tous les fichiers
-  - ✅ **INCREMENTAL** - Sauvegarde des fichiers modifiés depuis le dernier FULL
-  - ✅ **DIFFERENTIAL** - Sauvegarde des fichiers modifiés depuis le dernier FULL
+## Description
 
-### Fonctionnalités principales :
-  - Compression automatique (gzip/tar.gz)
-  - Métadonnées JSON pour chaque archive
-  - Restauration complète ou sélective
-  - Logs consolidés par jour (un fichier par type de script)
-  - Gestion des sessions de backup/restauration
-  - Vérification d'intégrité des archives
+Ce projet offre une solution complète de sauvegarde avec trois stratégies différentes :
+- **FULL** : Sauvegarde complète de tous les fichiers
+- **INCREMENTAL** : Sauvegarde des fichiers modifiés depuis le dernier FULL
+- **DIFFERENTIAL** : Sauvegarde des fichiers modifiés depuis le dernier FULL
 
----
+Le système inclut également un serveur Flask permettant la synchronisation des backups vers un serveur distant.
 
-## 📁 Structure du projet
+## Fonctionnalités
+
+### Backups Locaux
+- Création de backups FULL, INCREMENTAL et DIFFERENTIAL
+- Compression automatique (tar.gz)
+- Génération de métadonnées JSON avec checksums MD5
+- Logs quotidiens consolidés par type d'opération
+- Gestion de sessions pour le traçage des opérations
+- Vérification d'intégrité des archives
+
+### Restauration
+- Restauration complète avec application automatique des INC/DIFF
+- Restauration sélective d'un fichier spécifique
+- Mode dry-run pour tester sans modifier les fichiers
+- Recherche intelligente dans toutes les archives
+
+### Synchronisation Distante
+- Upload des backups vers un serveur Flask
+- Download des backups depuis le serveur
+- Vérification de synchronisation avec comparaison MD5
+- Statistiques détaillées du serveur
+- Nettoyage des backups locaux et distants
+
+## Architecture
 
 ```
-backup-system/
+.
+├── backup-system/              # Scripts de backup locaux
+│   ├── backup.sh              # Création des backups
+│   ├── restore.sh             # Restauration
+│   ├── upload.sh              # Upload vers serveur
+│   ├── download.sh            # Download depuis serveur
+│   ├── verify_sync.sh         # Vérification de synchro
+│   ├── clear_backups.sh       # Nettoyage local
+│   ├── clear_remote_backups.sh # Nettoyage distant
+│   ├── lib/
+│   │   ├── utils.sh           # Fonctions utilitaires
+│   │   └── usage.sh           # Fonctions de configuration
+│   ├── profiles/
+│   │   └── document.yaml      # Configuration profil
+│   ├── backup/                # Archives locales
+│   │   ├── FULL/
+│   │   ├── INC/
+│   │   └── DIFF/
+│   └── logs/                  # Logs quotidiens
 │
-├── backup.sh                     Script principal pour les backups
-├── restore.sh                    Script pour les restaurations
-├── demo_backup.sh                Démonstration complète du système
+├── serv/
+│   └── backup-server/
+│       ├── app.py             # Serveur Flask
+│       ├── requirements.txt
+│       └── remote_backups/    # Archives distantes
 │
-├── config/
-│   └── default.yaml              Configuration des profils
-│
-├── lib/
-│   ├── utils.sh                  Fonctions utilitaires
-│   └── usage.sh                  (Optionnel)
-│
-├── document/                     Dossier source (exemple)
-├── backup/                       Dossier contenant les archives
-│   ├── FULL/                     Archives complètes
-│   ├── INC/                      Archives incrémentales
-│   └── DIFF/                     Archives différentielles
-│
-├── logs/
-│   ├── backup_YYYY-MM-DD.log     Logs de tous les backups
-│   └── restore_YYYY-MM-DD.log    Logs de toutes les restaurations
-│
-└── profiles/
-    └── document.yaml             Profil de configuration
+├── demo.sh                    # Démonstration interactive
+└── start-server.sh            # Démarrage du serveur
 ```
 
----
+## Installation
 
-## 🔧 Fichiers principaux
+### Prérequis
 
-### `backup.sh`
-Crée des archives tar.gz des dossiers source.
+**Système :**
+- Linux, macOS ou WSL
+- Bash 4.0 ou supérieur
+- Python 3.6 ou supérieur
+
+**Outils requis :**
 ```bash
+# Sur Ubuntu/Debian
+sudo apt install curl jq python3-flask
+
+# Sur macOS
+brew install curl jq
+pip3 install Flask
+```
+
+### Installation rapide
+
+```bash
+# Cloner le projet
+git clone <repository-url>
+cd save-shell-project
+
+# Rendre les scripts exécutables
+chmod +x backup-system/*.sh
+chmod +x *.sh
+
+# Démarrer le serveur (optionnel)
+./start-server.sh
+```
+
+## Utilisation
+
+### 1. Création de Backups
+
+```bash
+cd backup-system
+
+# Backup FULL (complet)
 ./backup.sh --profile document --type full
+
+# Backup INCREMENTAL (depuis dernier FULL)
 ./backup.sh --profile document --type incremental
+
+# Backup DIFFERENTIAL (depuis dernier FULL)
 ./backup.sh --profile document --type diff
 ```
 
-### `restore.sh`
-Restaure fichiers ou dossiers depuis les archives.
+### 2. Restauration
+
 ```bash
-./restore.sh --profile document              # Restauration complète
-./restore.sh --profile document --dry-run    # Mode test
-./restore.sh --profile document --file nom   # Fichier spécifique
+# Restauration complète (FULL + tous les INC/DIFF)
+./restore.sh --profile document
+
+# Mode test (sans modifier les fichiers)
+./restore.sh --profile document --dry-run
+
+# Restauration d'un fichier spécifique
+./restore.sh --profile document --file readme.txt
 ```
 
-### `lib/utils.sh`
-Fonctions utilitaires :
-  - `init_logs(script_name)` - Initialise les logs du jour
-  - `log_session_start()` - Marque une nouvelle session
-  - `log(level, message)` - Écrit dans console + fichier
-  - `mkdir_safe(...)` - Crée des dossiers de manière sûre
-  - `rm_safe(...)` - Supprime fichiers/dossiers de manière sûre
-  - `get_config(profile, key)` - Lit les profils YAML
-  - `generate_metadata(...)` - Crée les métadonnées JSON
-  - `show_storage_state(...)` - Affiche l'état du stockage
-  - `verify_checksum(...)` - Vérifie l'intégrité
+### 3. Synchronisation avec le Serveur
 
----
-
-## ⚡ Utilisation rapide
-
-### 1. Préparation
 ```bash
+# Démarrer le serveur (terminal séparé)
+./start-server.sh
+
+# Upload tous les backups
 cd backup-system
-chmod +x backup.sh restore.sh demo_backup.sh
-mkdir -p document
+./upload.sh document --all
+
+# Download tous les backups
+./download.sh document --all
+
+# Vérifier la synchronisation
+./verify_sync.sh
+
+# Statistiques du serveur
+./verify_sync.sh --stats
 ```
 
-### 2. Créer un backup
+### 4. Nettoyage
+
 ```bash
-./backup.sh --profile document --type full        # Backup complet
-./backup.sh --profile document --type incremental # Incremental
-./backup.sh --profile document --type diff        # Différentiel
+# Nettoyer les backups locaux
+cd backup-system
+./clear_backups.sh
+
+# Nettoyer les backups du serveur
+./clear_remote_backups.sh
 ```
 
-### 3. Restaurer
+### 5. Démonstration Complète
+
 ```bash
-./restore.sh --profile document                   # Restauration complète
-./restore.sh --profile document --dry-run         # Test sans modifier
-./restore.sh --profile document --file fichier.txt # Fichier spécifique
+# Lancer la démo interactive
+./demo.sh
 ```
 
-### 4. Lancer la démo
-```bash
-./demo_backup.sh
-```
+La démo montre toutes les fonctionnalités du système avec des explications détaillées à chaque étape.
 
----
+## Configuration
 
-## 📊 Système de logs
+### Profils
 
-Les logs sont organisés **par jour** et **par type** :
+Les profils sont définis dans `backup-system/profiles/` au format YAML :
 
-```
-logs/backup_2025-11-21.log      ← Tous les backups du 21 novembre
-logs/restore_2025-11-21.log     ← Toutes les restaurations du 21 novembre
-```
-
-### Structure d'un log
-
-```
-═══════════════════════════════════════════════════════════
-[SESSION] 2025-11-21 09:07:19 - Nouvelle session
-═══════════════════════════════════════════════════════════
-[INFO] 2025-11-21 09:07:19 - Démarrage du backup...
-[SUCCESS] 2025-11-21 09:07:19 - Backup FULL terminé...
-
-═══════════════════════════════════════════════════════════
-[SESSION] 2025-11-21 10:15:42 - Nouvelle session
-═══════════════════════════════════════════════════════════
-[INFO] 2025-11-21 10:15:42 - Démarrage du backup...
-```
-
-### Niveaux de log
-- `[INFO]` - Informations générales
-- `[WARN]` - Avertissements
-- `[ERROR]` - Erreurs (affichées en rouge)
-- `[SUCCESS]` - Opérations réussies
-- `[SESSION]` - Marque le début d'une nouvelle session
-
----
-
-## 📋 Exemple de profil YAML
-
-`profiles/document.yaml` :
 ```yaml
 source: ./document
 destination: ./backup
 ```
 
-Cela signifie :
-- Les fichiers à sauvegarder se trouvent dans `./document`
-- Les archives sont créées dans `./backup/[FULL|INC|DIFF]`
+Créez autant de profils que nécessaire pour différents dossiers à sauvegarder.
 
----
+### Variables d'Environnement
 
-## 🎯 Métadonnées des archives
+```bash
+# URL du serveur (défaut: http://localhost:5000)
+export SERVER_URL="http://mon-serveur:5000"
 
-Chaque archive génère un fichier `.meta.json` :
+# Dossier de backup (défaut: ./backup)
+export BACKUP_DIR="/chemin/vers/backup"
+```
+
+## Fonctionnement Détaillé
+
+### Stratégies de Backup
+
+**FULL (Complet)**
+- Archive complète du dossier source
+- Crée un fichier snapshot pointant vers cette archive
+- Base pour les backups incrémentaux et différentiels
+
+**INCREMENTAL**
+- Compare avec le dernier FULL via snapshot
+- Utilise `find -newer` pour détecter les fichiers modifiés
+- Le snapshot reste sur le FULL (correction du bug original)
+- Plus rapide et moins volumineux que FULL
+
+**DIFFERENTIAL**
+- Même principe qu'INCREMENTAL
+- Compare toujours avec le dernier FULL
+- Contrairement à INCREMENTAL, inclut tous les changements depuis le FULL
+
+### Processus de Restauration
+
+1. Trouve le dernier backup FULL
+2. Restaure le FULL complètement
+3. Liste tous les INC créés après ce FULL
+4. Applique les INC dans l'ordre chronologique
+5. Liste tous les DIFF créés après ce FULL
+6. Applique les DIFF dans l'ordre chronologique
+
+Résultat : État exact des données au moment du dernier backup.
+
+### Métadonnées
+
+Chaque archive génère un fichier `.meta.json` contenant :
 
 ```json
 {
-  "archive": "./backup/FULL/full_2025-11-21_09-07-19.tar.gz",
+  "archive": "./backup/FULL/full_2025-11-23_10-00-00.tar.gz",
   "profile": "document",
   "type": "full",
-  "size": "12K",
-  "files": 5,
-  "date": "2025-11-21 09:07:19"
+  "size": "12.5 KB",
+  "files": 42,
+  "checksum": "a1b2c3d4e5f6...",
+  "parent": "",
+  "date": "2025-11-23 10:00:00"
 }
 ```
 
----
+### Logs
 
-## ✅ Features implémentées
+Les logs sont organisés par jour et par type :
+- `logs/backup_YYYY-MM-DD.log` : Tous les backups du jour
+- `logs/restore_YYYY-MM-DD.log` : Toutes les restaurations du jour
 
-- ✅ Backup FULL, INCREMENTAL, DIFFERENTIAL
-- ✅ Logs par jour (un fichier pour backup, un pour restore)
-- ✅ Sessions clairement séparées dans les logs
-- ✅ Métadonnées JSON pour chaque archive
-- ✅ Vérification d'intégrité des archives
-- ✅ Restauration complète avec gestion des dossiers
-- ✅ Restauration sélective de fichiers
-- ✅ Mode dry-run pour les restaurations
-- ✅ Gestion des profils YAML
-- ✅ Horodatage précis des opérations
-- ✅ Couleurs dans la console
-- ✅ Gestion sécurisée des fichiers
+Format des logs :
+```
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 10:00:00 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO]  2025-11-23 10:00:01 - Démarrage du backup...
+[SUCCESS] 2025-11-23 10:00:05 - Backup FULL terminé
+```
 
----
+## API du Serveur Flask
 
-## 📝 Notes importantes
+### Endpoints Disponibles
 
-- Les logs s'accumulent dans le même fichier toute la journée
-- À minuit (changement de jour), un nouveau fichier de log est créé
-- Les snapshots (`snap_*.dat`) permettent de tracer le dernier backup
-- Les métadonnées JSON facilitent le suivi des archives
-- Le système est entièrement portable (Linux/Mac/WSL)
+**GET /** - Informations sur l'API
 
----
+**POST /upload** - Upload un backup
+```bash
+curl -F "file=@backup.tar.gz" -F "type=FULL" -F "profile=document" \
+  http://localhost:5000/upload
+```
 
-## 🚀 Commandes Git
+**GET /list** - Liste tous les backups
+```bash
+curl http://localhost:5000/list
+```
+
+**GET /list/TYPE** - Liste par type (FULL, INC, DIFF)
+```bash
+curl http://localhost:5000/list/FULL
+```
+
+**GET /download/TYPE/filename** - Télécharge un backup
+```bash
+curl -O http://localhost:5000/download/FULL/full_2025-11-23_10-00-00.tar.gz
+```
+
+**POST /verify** - Vérifie la synchronisation
+```bash
+curl -X POST -H "Content-Type: application/json" \
+  -d '{"local_backups": {...}}' \
+  http://localhost:5000/verify
+```
+
+**GET /stats** - Statistiques du serveur
+```bash
+curl http://localhost:5000/stats
+```
+
+## Automatisation avec Cron
+
+Exemple de configuration crontab :
 
 ```bash
-git add .
-git commit -m "restore and backup update"
-git push origin main
+# Éditer le crontab
+crontab -e
+
+# Ajouter ces lignes :
+# Backup FULL quotidien à 2h du matin
+0 2 * * * cd /chemin/vers/backup-system && ./backup.sh --profile document --type full
+
+# Backup INCREMENTAL toutes les 6 heures
+0 */6 * * * cd /chemin/vers/backup-system && ./backup.sh --profile document --type incremental
+
+# Upload quotidien à 3h du matin
+0 3 * * * cd /chemin/vers/backup-system && ./upload.sh document --all
+
+# Vérification de synchro à 4h du matin
+0 4 * * * cd /chemin/vers/backup-system && ./verify_sync.sh >> /tmp/backup_verify.log 2>&1
 ```
 
----
+## Corrections Apportées
 
-## 🌐 Serveur Web de Synchronisation
+Ce projet inclut plusieurs corrections importantes par rapport à la version originale :
 
-### Nouveau : Backup Server Flask
+### Bugs Corrigés
 
-Le projet inclut maintenant un **serveur web Python Flask** qui permet de :
+1. **Bug critique du snapshot incremental** : Le snapshot n'est plus écrasé lors des backups incrémentaux, il pointe toujours vers le dernier FULL
+2. **Logique DIFF incorrecte** : Utilise maintenant `find -newer` comme INCREMENTAL
+3. **Portabilité stat** : Supporte à la fois Linux (stat -c) et BSD/Mac (stat -f)
+4. **Bug ((variable++)) avec set -e** : Remplacé par `variable=$((variable + 1))`
+5. **Extraction fichier unique** : Extraction dans dossier temporaire puis copie
+6. **Génération JSON dans verify_sync** : Syntaxe JSON corrigée
 
-- ✅ Recevoir les backups depuis les scripts shell
-- ✅ Lister les backups stockés
-- ✅ Vérifier la synchronisation local/distant
-- ✅ Calculer les hash MD5 pour l'intégrité
-- ✅ Générer des métadonnées JSON
+### Améliorations
 
-### Démarrage rapide
+1. **Vraie vérification de checksum** : Calcul MD5 réel au lieu de simple vérification d'archive
+2. **Restauration complète** : Applique automatiquement FULL + tous les INC + tous les DIFF
+3. **Métadonnées enrichies** : Ajout du checksum MD5 et du parent
+4. **Download depuis serveur** : Nouvelle fonctionnalité absente de la version originale
+5. **Nettoyage du serveur** : Script dédié pour nettoyer les backups distants
 
-```bash
-# Terminal 1 : Lancer le serveur
-./start-server.sh
+## Auteurs
 
-# Terminal 2 : Créer et uploader les backups
-cd backup-system
-./backup.sh --profile document --type full
-./upload.sh document --all
-
-# Terminal 2 : Vérifier la synchronisation
-./verify_sync.sh
-./verify_sync.sh --stats
-```
-
-### Structure du serveur
-
-```
-serv/backup-server/
-├── app.py                Application Flask
-├── requirements.txt      Dépendances Python
-├── remote_backups/       Backups reçus
-│   ├── FULL/
-│   ├── INC/
-│   └── DIFF/
-└── README.md            Documentation du serveur
-```
-
-### Endpoints API disponibles
-
-- `GET /` - Informations API
-- `POST /upload` - Uploader un backup
-- `GET /list` - Lister tous les backups
-- `GET /list/<type>` - Lister par type (FULL|INC|DIFF)
-- `POST /verify` - Vérifier la synchronisation
-- `GET /stats` - Statistiques du serveur
-
-### Scripts d'intégration
-
-- `backup-system/upload.sh` - Uploader les backups
-- `backup-system/verify_sync.sh` - Vérifier la synchronisation
-- `start-server.sh` - Démarrer le serveur facilement
-
----
-
-## 📚 Documentation complète
-
-Voir **[USAGE_GUIDE.md](USAGE_GUIDE.md)** pour un guide d'utilisation complet avec exemples.
-
----
-
-Créé par **MrKazar** - 2025
+**MrKazar**, **VikusCode** et **NDesumeur**

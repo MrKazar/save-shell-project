@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
 Backup Server - Flask application for receiving and managing backups
-Supports: upload, list, verify backups from shell scripts
+Supports: upload, download, list, verify backups from shell scripts
 """
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 import os
 import json
 from pathlib import Path
@@ -13,13 +13,11 @@ import hashlib
 
 app = Flask(__name__)
 
-# Configuration
 BASE_DIR = Path(__file__).parent
 REMOTE_BACKUPS_DIR = BASE_DIR / "remote_backups"
 UPLOAD_DIR = REMOTE_BACKUPS_DIR
-MAX_FILE_SIZE = 500 * 1024 * 1024  # 500 MB
+MAX_FILE_SIZE = 500 * 1024 * 1024
 
-# Ensure directories exist
 for backup_type in ["FULL", "INC", "DIFF"]:
     (REMOTE_BACKUPS_DIR / backup_type).mkdir(parents=True, exist_ok=True)
 
@@ -65,6 +63,7 @@ def index():
             "POST /upload": "Upload a backup file",
             "GET /list": "List all backups",
             "GET /list/<type>": "List backups of specific type (FULL|INC|DIFF)",
+            "GET /download/<type>/<filename>": "Download a specific backup file",
             "POST /verify": "Verify backup synchronization",
             "GET /stats": "Get server statistics"
         }
@@ -81,22 +80,18 @@ def upload():
         - profile: profile name (optional)
     """
     try:
-        # Check if file is in request
         if "file" not in request.files:
             return jsonify({"error": "No file provided"}), 400
 
         file = request.files["file"]
         backup_type = request.form.get("type", "FULL").upper()
 
-        # Validate backup type
         if backup_type not in ["FULL", "INC", "DIFF"]:
             return jsonify({"error": f"Invalid backup type: {backup_type}"}), 400
 
-        # Validate filename
         if not file.filename or not file.filename.endswith(".tar.gz"):
             return jsonify({"error": "File must be a .tar.gz archive"}), 400
 
-        # Check file size
         file.seek(0, os.SEEK_END)
         file_size = file.tell()
         file.seek(0)
@@ -104,14 +99,12 @@ def upload():
         if file_size > MAX_FILE_SIZE:
             return jsonify({"error": f"File size exceeds limit ({MAX_FILE_SIZE} bytes)"}), 413
 
-        # Save file
         upload_dir = REMOTE_BACKUPS_DIR / backup_type
         upload_dir.mkdir(parents=True, exist_ok=True)
         
         filepath = upload_dir / file.filename
         file.save(str(filepath))
 
-        # Generate metadata
         file_info = get_file_info(filepath)
         metadata = {
             "filename": file.filename,
@@ -121,7 +114,6 @@ def upload():
             **file_info
         }
 
-        # Save metadata
         metadata_path = filepath.with_suffix(".json")
         with open(metadata_path, "w") as f:
             json.dump(metadata, f, indent=2)
@@ -146,7 +138,6 @@ def list_backups():
         backup_type = request.args.get("type", None)
         result = {}
 
-        # Get specific type or all types
         types_to_check = [backup_type.upper()] if backup_type else ["FULL", "INC", "DIFF"]
 
         for btype in types_to_check:
@@ -159,7 +150,6 @@ def list_backups():
             for archive in sorted(type_dir.glob("*.tar.gz")):
                 info = get_file_info(archive)
                 
-                # Try to load metadata
                 metadata_path = archive.with_suffix(".json")
                 if metadata_path.exists():
                     with open(metadata_path, "r") as f:
@@ -196,7 +186,6 @@ def list_backups_by_type(backup_type):
             for archive in sorted(type_dir.glob("*.tar.gz")):
                 info = get_file_info(archive)
                 
-                # Try to load metadata
                 metadata_path = archive.with_suffix(".json")
                 if metadata_path.exists():
                     with open(metadata_path, "r") as f:
@@ -212,6 +201,31 @@ def list_backups_by_type(backup_type):
             "count": len(backups)
         }), 200
 
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/download/<backup_type>/<filename>", methods=["GET"])
+def download_backup(backup_type, filename):
+    """
+    Download a specific backup file
+    """
+    try:
+        backup_type = backup_type.upper()
+        
+        if backup_type not in ["FULL", "INC", "DIFF"]:
+            return jsonify({"error": f"Invalid backup type: {backup_type}"}), 400
+        
+        file_path = REMOTE_BACKUPS_DIR / backup_type / filename
+        
+        if not file_path.exists():
+            return jsonify({"error": "File not found"}), 404
+        
+        if not filename.endswith(".tar.gz"):
+            return jsonify({"error": "Only .tar.gz files can be downloaded"}), 400
+        
+        return send_file(str(file_path), as_attachment=True, download_name=filename)
+        
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -236,7 +250,6 @@ def verify_sync():
             "issues": []
         }
 
-        # Get remote backups
         remote_backups = {}
         for btype in ["FULL", "INC", "DIFF"]:
             remote_backups[btype] = []
@@ -249,7 +262,6 @@ def verify_sync():
                         "md5": calculate_file_hash(archive)
                     })
 
-        # Compare
         for btype in ["FULL", "INC", "DIFF"]:
             local_list = local_backups.get(btype, [])
             remote_list = remote_backups.get(btype, [])
@@ -263,7 +275,6 @@ def verify_sync():
                 "extra_remote": []
             }
 
-            # Check which local files are synced
             for local_file in local_list:
                 found = False
                 for remote_file in remote_list:
@@ -277,7 +288,6 @@ def verify_sync():
                     verification["missing_remote"].append(local_file["name"])
                     result["issues"].append(f"Missing on remote: {btype}/{local_file['name']}")
 
-            # Check for extra remote files
             for remote_file in remote_list:
                 found = False
                 for local_file in local_list:
@@ -290,7 +300,6 @@ def verify_sync():
 
             result["verification"][btype] = verification
 
-        # Determine sync status
         all_synced = all(
             v["missing_remote"] == [] and v["local_count"] == v["remote_count"]
             for v in result["verification"].values()

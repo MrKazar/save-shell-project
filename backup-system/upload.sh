@@ -2,15 +2,13 @@
 # =============================================================================
 # Upload Script - Envoie les backups vers le serveur distant
 # =============================================================================
-
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$SCRIPT_DIR/.."
 
 # Configuration
 SERVER_URL="${SERVER_URL:-http://localhost:5000}"
-BACKUP_DIR="${BACKUP_DIR:-./backup}"
+BACKUP_DIR="${BACKUP_DIR:-$SCRIPT_DIR/backup}"
 BACKUP_TYPES=("FULL" "INC" "DIFF")
 
 # Couleurs
@@ -20,9 +18,6 @@ BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
-# =====================
-# Fonctions
-# =====================
 log_info() {
     echo -e "${BLUE}[INFO]${NC}  $*"
 }
@@ -39,9 +34,6 @@ log_warn() {
     echo -e "${YELLOW}[WARN]${NC}  $*"
 }
 
-# =====================
-# Vérifier la connectivité au serveur
-# =====================
 check_server() {
     if curl -s "$SERVER_URL/" > /dev/null 2>&1; then
         log_success "Serveur disponible : $SERVER_URL"
@@ -52,32 +44,29 @@ check_server() {
     fi
 }
 
-# =====================
-# Uploader un fichier
-# =====================
 upload_file() {
     local filepath="$1"
     local backup_type="$2"
     local profile="$3"
-
+    
     if [[ ! -f "$filepath" ]]; then
         log_error "Fichier non trouvé : $filepath"
         return 1
     fi
-
+    
     log_info "Upload de $backup_type : $(basename "$filepath")"
-
+    
     response=$(curl -s -w "\n%{http_code}" -F "file=@$filepath" \
         -F "type=$backup_type" \
         -F "profile=$profile" \
         "$SERVER_URL/upload")
-
+    
     http_code=$(echo "$response" | tail -n1)
     body=$(echo "$response" | sed '$d')
-
+    
     if [[ "$http_code" == "201" ]]; then
         log_success "Upload réussi : $(basename "$filepath")"
-        echo "$body" | jq -r '.md5' > "$(dirname "$filepath")/$(basename "$filepath" .tar.gz).md5"
+        echo "$body" | jq -r '.md5' > "$(dirname "$filepath")/$(basename "$filepath" .tar.gz).md5" 2>/dev/null || true
         return 0
     else
         log_error "Erreur upload (HTTP $http_code) : $(basename "$filepath")"
@@ -86,42 +75,47 @@ upload_file() {
     fi
 }
 
-# =====================
-# Uploader tous les backups
-# =====================
 upload_all() {
     local profile="$1"
-
-    [[ ! -d "$BACKUP_DIR" ]] && { log_error "Dossier de backup non trouvé : $BACKUP_DIR"; return 1; }
-
+    
+    
+    if [[ ! -d "$BACKUP_DIR" ]]; then
+        log_error "Dossier de backup non trouvé : $BACKUP_DIR"
+        return 1
+    fi
+    
     check_server || return 1
-
+    
+    
     local total=0
     local uploaded=0
-
+    
     for backup_type in "${BACKUP_TYPES[@]}"; do
         local type_dir="$BACKUP_DIR/$backup_type"
-
-        [[ ! -d "$type_dir" ]] && continue
-
+        
+        if [[ ! -d "$type_dir" ]]; then
+            continue
+        fi
+        
+        
         for archive in "$type_dir"/*.tar.gz; do
-            [[ ! -f "$archive" ]] && continue
             
-            ((total++))
+            if [[ ! -f "$archive" ]]; then
+                continue
+            fi
+            
+            total=$((total + 1))
             if upload_file "$archive" "$backup_type" "$profile"; then
-                ((uploaded++))
+                uploaded=$((uploaded + 1))
             fi
         done
     done
-
+    
     echo
     log_info "Résumé : $uploaded/$total fichiers uploadés"
     return 0
 }
 
-# =====================
-# Main
-# =====================
 echo "=========================================="
 echo "  Backup Upload Script"
 echo "=========================================="
@@ -136,4 +130,5 @@ if [[ $# -eq 0 ]]; then
 fi
 
 PROFILE="$1"
+
 upload_all "$PROFILE"

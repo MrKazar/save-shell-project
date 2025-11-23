@@ -1,0 +1,670 @@
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:26:15 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:26:15 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:26:15 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:26:15 - Restauration complète depuis full_2025-11-23_15-25-39.tar.gz
+[WARN] 2025-11-23 15:26:15 - [DRY-RUN] Mode de test activé
+[INFO] 2025-11-23 15:26:15 - [DRY-RUN] Contenu du FULL:
+[INFO] 2025-11-23 15:26:15 - [DRY-RUN] Incrementals à appliquer:
+[INFO] 2025-11-23 15:26:15 -   - inc_2025-11-23_15-25-51.tar.gz
+[INFO] 2025-11-23 15:26:15 - [DRY-RUN] Diffs à appliquer:
+[INFO] 2025-11-23 15:26:15 -   - diff_2025-11-23_15-26-00.tar.gz
+[INFO] 2025-11-23 15:26:15 - [DRY-RUN] Aucun fichier n'a été restauré.
+[SUCCESS] 2025-11-23 15:26:15 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:26:28 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:26:28 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:26:28 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:26:28 - Restauration complète depuis full_2025-11-23_15-25-39.tar.gz
+[INFO] 2025-11-23 15:26:28 - Restauration du FULL...
+[SUCCESS] 2025-11-23 15:26:28 - FULL restauré
+[INFO] 2025-11-23 15:26:28 - Application des incrementals...
+[INFO] 2025-11-23 15:26:28 - Application de inc_2025-11-23_15-25-51.tar.gz
+[SUCCESS] 2025-11-23 15:26:28 - inc_2025-11-23_15-25-51.tar.gz appliqué
+[INFO] 2025-11-23 15:26:28 - Application des diffs...
+[INFO] 2025-11-23 15:26:28 - Application de diff_2025-11-23_15-26-00.tar.gz
+[SUCCESS] 2025-11-23 15:26:28 - diff_2025-11-23_15-26-00.tar.gz appliqué
+[SUCCESS] 2025-11-23 15:26:28 - Restauration complète terminée.
+[SUCCESS] 2025-11-23 15:26:28 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:26:43 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:26:43 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:26:43 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:26:43 - Recherche du fichier readme.txt dans les archives
+[INFO] 2025-11-23 15:26:43 - Fichier trouvé dans DIFF : diff_2025-11-23_15-26-00.tar.gz
+[ERROR] 2025-11-23 15:26:43 - Échec de restauration du fichier readme.txt
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:27:15 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:27:15 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:27:15 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:27:15 - Restauration complète depuis full_2025-11-23_15-27-10.tar.gz
+[WARN] 2025-11-23 15:27:15 - [DRY-RUN] Mode de test activé
+[INFO] 2025-11-23 15:27:15 - [DRY-RUN] Contenu du FULL:
+[INFO] 2025-11-23 15:27:15 - [DRY-RUN] Incrementals à appliquer:
+[INFO] 2025-11-23 15:27:15 -   - inc_2025-11-23_15-27-12.tar.gz
+[INFO] 2025-11-23 15:27:15 - [DRY-RUN] Diffs à appliquer:
+[INFO] 2025-11-23 15:27:15 -   - diff_2025-11-23_15-27-14.tar.gz
+[INFO] 2025-11-23 15:27:15 - [DRY-RUN] Aucun fichier n'a été restauré.
+[SUCCESS] 2025-11-23 15:27:15 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:27:16 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:27:16 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:27:16 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:27:16 - Restauration complète depuis full_2025-11-23_15-27-10.tar.gz
+[INFO] 2025-11-23 15:27:16 - Restauration du FULL...
+[SUCCESS] 2025-11-23 15:27:16 - FULL restauré
+[INFO] 2025-11-23 15:27:16 - Application des incrementals...
+[INFO] 2025-11-23 15:27:16 - Application de inc_2025-11-23_15-27-12.tar.gz
+[SUCCESS] 2025-11-23 15:27:16 - inc_2025-11-23_15-27-12.tar.gz appliqué
+[INFO] 2025-11-23 15:27:16 - Application des diffs...
+[INFO] 2025-11-23 15:27:17 - Application de diff_2025-11-23_15-27-14.tar.gz
+[SUCCESS] 2025-11-23 15:27:17 - diff_2025-11-23_15-27-14.tar.gz appliqué
+[SUCCESS] 2025-11-23 15:27:17 - Restauration complète terminée.
+[SUCCESS] 2025-11-23 15:27:17 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:27:21 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:27:21 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:27:21 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:27:21 - Recherche du fichier readme.txt dans les archives
+[INFO] 2025-11-23 15:27:21 - Fichier trouvé dans DIFF : diff_2025-11-23_15-27-14.tar.gz
+[ERROR] 2025-11-23 15:27:21 - Échec de restauration du fichier readme.txt
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:34:46 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:34:46 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:34:46 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:34:46 - Restauration complète depuis full_2025-11-23_15-34-25.tar.gz
+[WARN] 2025-11-23 15:34:46 - [DRY-RUN] Mode de test activé
+[INFO] 2025-11-23 15:34:46 - [DRY-RUN] Contenu du FULL:
+[INFO] 2025-11-23 15:34:47 - [DRY-RUN] Incrementals à appliquer:
+[INFO] 2025-11-23 15:34:47 -   - inc_2025-11-23_15-34-35.tar.gz
+[INFO] 2025-11-23 15:34:47 - [DRY-RUN] Diffs à appliquer:
+[INFO] 2025-11-23 15:34:47 -   - diff_2025-11-23_15-34-41.tar.gz
+[INFO] 2025-11-23 15:34:47 - [DRY-RUN] Aucun fichier n'a été restauré.
+[SUCCESS] 2025-11-23 15:34:47 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:34:58 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:34:58 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:34:58 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:34:58 - Restauration complète depuis full_2025-11-23_15-34-25.tar.gz
+[INFO] 2025-11-23 15:34:58 - Restauration du FULL...
+[SUCCESS] 2025-11-23 15:34:58 - FULL restauré
+[INFO] 2025-11-23 15:34:58 - Application des incrementals...
+[INFO] 2025-11-23 15:34:58 - Application de inc_2025-11-23_15-34-35.tar.gz
+[SUCCESS] 2025-11-23 15:34:58 - inc_2025-11-23_15-34-35.tar.gz appliqué
+[INFO] 2025-11-23 15:34:58 - Application des diffs...
+[INFO] 2025-11-23 15:34:58 - Application de diff_2025-11-23_15-34-41.tar.gz
+[SUCCESS] 2025-11-23 15:34:58 - diff_2025-11-23_15-34-41.tar.gz appliqué
+[SUCCESS] 2025-11-23 15:34:58 - Restauration complète terminée.
+[SUCCESS] 2025-11-23 15:34:58 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:35:07 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:35:07 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:35:07 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:35:07 - Recherche du fichier readme.txt dans les archives
+[INFO] 2025-11-23 15:35:07 - Fichier trouvé dans DIFF : diff_2025-11-23_15-34-41.tar.gz
+[SUCCESS] 2025-11-23 15:35:07 - Fichier readme.txt restauré avec succès
+[SUCCESS] 2025-11-23 15:35:07 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:37:34 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:37:34 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:37:34 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:37:34 - Restauration complète depuis full_2025-11-23_15-37-24.tar.gz
+[WARN] 2025-11-23 15:37:34 - [DRY-RUN] Mode de test activé
+[INFO] 2025-11-23 15:37:34 - [DRY-RUN] Contenu du FULL:
+[INFO] 2025-11-23 15:37:35 - [DRY-RUN] Incrementals à appliquer:
+[INFO] 2025-11-23 15:37:35 -   - inc_2025-11-23_15-37-27.tar.gz
+[INFO] 2025-11-23 15:37:35 - [DRY-RUN] Diffs à appliquer:
+[INFO] 2025-11-23 15:37:35 -   - diff_2025-11-23_15-37-31.tar.gz
+[INFO] 2025-11-23 15:37:35 - [DRY-RUN] Aucun fichier n'a été restauré.
+[SUCCESS] 2025-11-23 15:37:35 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:37:37 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:37:37 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:37:37 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:37:37 - Restauration complète depuis full_2025-11-23_15-37-24.tar.gz
+[INFO] 2025-11-23 15:37:37 - Restauration du FULL...
+[SUCCESS] 2025-11-23 15:37:37 - FULL restauré
+[INFO] 2025-11-23 15:37:37 - Application des incrementals...
+[INFO] 2025-11-23 15:37:37 - Application de inc_2025-11-23_15-37-27.tar.gz
+[SUCCESS] 2025-11-23 15:37:37 - inc_2025-11-23_15-37-27.tar.gz appliqué
+[INFO] 2025-11-23 15:37:37 - Application des diffs...
+[INFO] 2025-11-23 15:37:37 - Application de diff_2025-11-23_15-37-31.tar.gz
+[SUCCESS] 2025-11-23 15:37:37 - diff_2025-11-23_15-37-31.tar.gz appliqué
+[SUCCESS] 2025-11-23 15:37:37 - Restauration complète terminée.
+[SUCCESS] 2025-11-23 15:37:37 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:37:40 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:37:40 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:37:40 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:37:40 - Recherche du fichier readme.txt dans les archives
+[INFO] 2025-11-23 15:37:40 - Fichier trouvé dans DIFF : diff_2025-11-23_15-37-31.tar.gz
+[SUCCESS] 2025-11-23 15:37:40 - Fichier readme.txt restauré avec succès
+[SUCCESS] 2025-11-23 15:37:40 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:39:49 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:39:49 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:39:49 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:39:49 - Restauration complète depuis full_2025-11-23_15-39-20.tar.gz
+[WARN] 2025-11-23 15:39:49 - [DRY-RUN] Mode de test activé
+[INFO] 2025-11-23 15:39:49 - [DRY-RUN] Contenu du FULL:
+[INFO] 2025-11-23 15:39:49 - [DRY-RUN] Incrementals à appliquer:
+[INFO] 2025-11-23 15:39:49 -   - inc_2025-11-23_15-39-28.tar.gz
+[INFO] 2025-11-23 15:39:49 - [DRY-RUN] Diffs à appliquer:
+[INFO] 2025-11-23 15:39:49 -   - diff_2025-11-23_15-39-37.tar.gz
+[INFO] 2025-11-23 15:39:49 - [DRY-RUN] Aucun fichier n'a été restauré.
+[SUCCESS] 2025-11-23 15:39:49 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:39:56 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:39:56 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:39:57 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:39:57 - Restauration complète depuis full_2025-11-23_15-39-20.tar.gz
+[INFO] 2025-11-23 15:39:57 - Restauration du FULL...
+[SUCCESS] 2025-11-23 15:39:57 - FULL restauré
+[INFO] 2025-11-23 15:39:57 - Application des incrementals...
+[INFO] 2025-11-23 15:39:57 - Application de inc_2025-11-23_15-39-28.tar.gz
+[SUCCESS] 2025-11-23 15:39:57 - inc_2025-11-23_15-39-28.tar.gz appliqué
+[INFO] 2025-11-23 15:39:57 - Application des diffs...
+[INFO] 2025-11-23 15:39:57 - Application de diff_2025-11-23_15-39-37.tar.gz
+[SUCCESS] 2025-11-23 15:39:57 - diff_2025-11-23_15-39-37.tar.gz appliqué
+[SUCCESS] 2025-11-23 15:39:57 - Restauration complète terminée.
+[SUCCESS] 2025-11-23 15:39:57 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:40:02 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:40:02 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:40:02 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:40:02 - Recherche du fichier readme.txt dans les archives
+[INFO] 2025-11-23 15:40:02 - Fichier trouvé dans DIFF : diff_2025-11-23_15-39-37.tar.gz
+[SUCCESS] 2025-11-23 15:40:02 - Fichier readme.txt restauré avec succès
+[SUCCESS] 2025-11-23 15:40:02 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:43:06 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:43:06 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:43:06 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:43:06 - Restauration complète depuis full_2025-11-23_15-42-52.tar.gz
+[WARN] 2025-11-23 15:43:06 - [DRY-RUN] Mode de test activé
+[INFO] 2025-11-23 15:43:06 - [DRY-RUN] Contenu du FULL:
+[INFO] 2025-11-23 15:43:06 - [DRY-RUN] Incrementals à appliquer:
+[INFO] 2025-11-23 15:43:06 -   - inc_2025-11-23_15-42-56.tar.gz
+[INFO] 2025-11-23 15:43:06 - [DRY-RUN] Diffs à appliquer:
+[INFO] 2025-11-23 15:43:06 -   - diff_2025-11-23_15-43-01.tar.gz
+[INFO] 2025-11-23 15:43:06 - [DRY-RUN] Aucun fichier n'a été restauré.
+[SUCCESS] 2025-11-23 15:43:06 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:43:08 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:43:08 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:43:08 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:43:08 - Restauration complète depuis full_2025-11-23_15-42-52.tar.gz
+[INFO] 2025-11-23 15:43:08 - Restauration du FULL...
+[SUCCESS] 2025-11-23 15:43:08 - FULL restauré
+[INFO] 2025-11-23 15:43:08 - Application des incrementals...
+[INFO] 2025-11-23 15:43:08 - Application de inc_2025-11-23_15-42-56.tar.gz
+[SUCCESS] 2025-11-23 15:43:08 - inc_2025-11-23_15-42-56.tar.gz appliqué
+[INFO] 2025-11-23 15:43:08 - Application des diffs...
+[INFO] 2025-11-23 15:43:08 - Application de diff_2025-11-23_15-43-01.tar.gz
+[SUCCESS] 2025-11-23 15:43:08 - diff_2025-11-23_15-43-01.tar.gz appliqué
+[SUCCESS] 2025-11-23 15:43:08 - Restauration complète terminée.
+[SUCCESS] 2025-11-23 15:43:08 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:43:11 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:43:11 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:43:11 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:43:11 - Recherche du fichier readme.txt dans les archives
+[INFO] 2025-11-23 15:43:11 - Fichier trouvé dans DIFF : diff_2025-11-23_15-43-01.tar.gz
+[SUCCESS] 2025-11-23 15:43:11 - Fichier readme.txt restauré avec succès
+[SUCCESS] 2025-11-23 15:43:11 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:48:12 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:48:12 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:48:12 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:48:12 - Restauration complète depuis full_2025-11-23_15-47-18.tar.gz
+[WARN] 2025-11-23 15:48:12 - [DRY-RUN] Mode de test activé
+[INFO] 2025-11-23 15:48:12 - [DRY-RUN] Contenu du FULL:
+[INFO] 2025-11-23 15:48:12 - [DRY-RUN] Incrementals à appliquer:
+[INFO] 2025-11-23 15:48:12 -   - inc_2025-11-23_15-47-22.tar.gz
+[INFO] 2025-11-23 15:48:12 - [DRY-RUN] Diffs à appliquer:
+[INFO] 2025-11-23 15:48:12 -   - diff_2025-11-23_15-48-09.tar.gz
+[INFO] 2025-11-23 15:48:12 - [DRY-RUN] Aucun fichier n'a été restauré.
+[SUCCESS] 2025-11-23 15:48:12 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:48:14 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:48:14 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:48:14 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:48:14 - Restauration complète depuis full_2025-11-23_15-47-18.tar.gz
+[INFO] 2025-11-23 15:48:14 - Restauration du FULL...
+[SUCCESS] 2025-11-23 15:48:14 - FULL restauré
+[INFO] 2025-11-23 15:48:14 - Application des incrementals...
+[INFO] 2025-11-23 15:48:14 - Application de inc_2025-11-23_15-47-22.tar.gz
+[SUCCESS] 2025-11-23 15:48:14 - inc_2025-11-23_15-47-22.tar.gz appliqué
+[INFO] 2025-11-23 15:48:14 - Application des diffs...
+[INFO] 2025-11-23 15:48:14 - Application de diff_2025-11-23_15-48-09.tar.gz
+[SUCCESS] 2025-11-23 15:48:14 - diff_2025-11-23_15-48-09.tar.gz appliqué
+[SUCCESS] 2025-11-23 15:48:14 - Restauration complète terminée.
+[SUCCESS] 2025-11-23 15:48:14 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:48:15 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:48:15 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:48:15 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:48:15 - Recherche du fichier readme.txt dans les archives
+[INFO] 2025-11-23 15:48:15 - Fichier trouvé dans DIFF : diff_2025-11-23_15-48-09.tar.gz
+[SUCCESS] 2025-11-23 15:48:15 - Fichier readme.txt restauré avec succès
+[SUCCESS] 2025-11-23 15:48:15 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:49:49 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:49:49 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:49:50 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:49:50 - Restauration complète depuis full_2025-11-23_15-49-34.tar.gz
+[WARN] 2025-11-23 15:49:50 - [DRY-RUN] Mode de test activé
+[INFO] 2025-11-23 15:49:50 - [DRY-RUN] Contenu du FULL:
+[INFO] 2025-11-23 15:49:50 - [DRY-RUN] Incrementals à appliquer:
+[INFO] 2025-11-23 15:49:50 -   - inc_2025-11-23_15-49-39.tar.gz
+[INFO] 2025-11-23 15:49:50 - [DRY-RUN] Diffs à appliquer:
+[INFO] 2025-11-23 15:49:50 -   - diff_2025-11-23_15-49-43.tar.gz
+[INFO] 2025-11-23 15:49:50 - [DRY-RUN] Aucun fichier n'a été restauré.
+[SUCCESS] 2025-11-23 15:49:50 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:49:53 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:49:53 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:49:53 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:49:53 - Restauration complète depuis full_2025-11-23_15-49-34.tar.gz
+[INFO] 2025-11-23 15:49:53 - Restauration du FULL...
+[SUCCESS] 2025-11-23 15:49:53 - FULL restauré
+[INFO] 2025-11-23 15:49:53 - Application des incrementals...
+[INFO] 2025-11-23 15:49:53 - Application de inc_2025-11-23_15-49-39.tar.gz
+[SUCCESS] 2025-11-23 15:49:53 - inc_2025-11-23_15-49-39.tar.gz appliqué
+[INFO] 2025-11-23 15:49:54 - Application des diffs...
+[INFO] 2025-11-23 15:49:54 - Application de diff_2025-11-23_15-49-43.tar.gz
+[SUCCESS] 2025-11-23 15:49:54 - diff_2025-11-23_15-49-43.tar.gz appliqué
+[SUCCESS] 2025-11-23 15:49:54 - Restauration complète terminée.
+[SUCCESS] 2025-11-23 15:49:54 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:49:58 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:49:58 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:49:58 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:49:58 - Recherche du fichier readme.txt dans les archives
+[INFO] 2025-11-23 15:49:58 - Fichier trouvé dans DIFF : diff_2025-11-23_15-49-43.tar.gz
+[SUCCESS] 2025-11-23 15:49:58 - Fichier readme.txt restauré avec succès
+[SUCCESS] 2025-11-23 15:49:58 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:58:43 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:58:43 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:58:43 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:58:43 - Restauration complète depuis full_2025-11-23_15-58-31.tar.gz
+[WARN] 2025-11-23 15:58:43 - [DRY-RUN] Mode de test activé
+[INFO] 2025-11-23 15:58:43 - [DRY-RUN] Contenu du FULL:
+[INFO] 2025-11-23 15:58:43 - [DRY-RUN] Incrementals à appliquer:
+[INFO] 2025-11-23 15:58:43 -   - inc_2025-11-23_15-58-36.tar.gz
+[INFO] 2025-11-23 15:58:43 - [DRY-RUN] Diffs à appliquer:
+[INFO] 2025-11-23 15:58:43 -   - diff_2025-11-23_15-58-40.tar.gz
+[INFO] 2025-11-23 15:58:43 - [DRY-RUN] Aucun fichier n'a été restauré.
+[SUCCESS] 2025-11-23 15:58:43 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:58:45 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:58:45 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:58:45 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:58:45 - Restauration complète depuis full_2025-11-23_15-58-31.tar.gz
+[INFO] 2025-11-23 15:58:45 - Restauration du FULL...
+[SUCCESS] 2025-11-23 15:58:45 - FULL restauré
+[INFO] 2025-11-23 15:58:45 - Application des incrementals...
+[INFO] 2025-11-23 15:58:45 - Application de inc_2025-11-23_15-58-36.tar.gz
+[SUCCESS] 2025-11-23 15:58:45 - inc_2025-11-23_15-58-36.tar.gz appliqué
+[INFO] 2025-11-23 15:58:45 - Application des diffs...
+[INFO] 2025-11-23 15:58:45 - Application de diff_2025-11-23_15-58-40.tar.gz
+[SUCCESS] 2025-11-23 15:58:45 - diff_2025-11-23_15-58-40.tar.gz appliqué
+[SUCCESS] 2025-11-23 15:58:45 - Restauration complète terminée.
+[SUCCESS] 2025-11-23 15:58:45 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 15:58:47 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 15:58:47 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 15:58:47 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 15:58:47 - Recherche du fichier readme.txt dans les archives
+[INFO] 2025-11-23 15:58:47 - Fichier trouvé dans DIFF : diff_2025-11-23_15-58-40.tar.gz
+[SUCCESS] 2025-11-23 15:58:47 - Fichier readme.txt restauré avec succès
+[SUCCESS] 2025-11-23 15:58:47 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 16:15:39 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 16:15:39 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 16:15:39 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 16:15:39 - Restauration complète depuis full_2025-11-23_16-15-27.tar.gz
+[WARN] 2025-11-23 16:15:39 - [DRY-RUN] Mode de test activé
+[INFO] 2025-11-23 16:15:39 - [DRY-RUN] Contenu du FULL:
+[INFO] 2025-11-23 16:15:39 - [DRY-RUN] Incrementals à appliquer:
+[INFO] 2025-11-23 16:15:39 -   - inc_2025-11-23_16-15-32.tar.gz
+[INFO] 2025-11-23 16:15:39 - [DRY-RUN] Diffs à appliquer:
+[INFO] 2025-11-23 16:15:39 -   - diff_2025-11-23_16-15-35.tar.gz
+[INFO] 2025-11-23 16:15:39 - [DRY-RUN] Aucun fichier n'a été restauré.
+[SUCCESS] 2025-11-23 16:15:39 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 16:15:42 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 16:15:42 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 16:15:42 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 16:15:42 - Restauration complète depuis full_2025-11-23_16-15-27.tar.gz
+[INFO] 2025-11-23 16:15:42 - Restauration du FULL...
+[SUCCESS] 2025-11-23 16:15:42 - FULL restauré
+[INFO] 2025-11-23 16:15:42 - Application des incrementals...
+[INFO] 2025-11-23 16:15:42 - Application de inc_2025-11-23_16-15-32.tar.gz
+[SUCCESS] 2025-11-23 16:15:43 - inc_2025-11-23_16-15-32.tar.gz appliqué
+[INFO] 2025-11-23 16:15:43 - Application des diffs...
+[INFO] 2025-11-23 16:15:43 - Application de diff_2025-11-23_16-15-35.tar.gz
+[SUCCESS] 2025-11-23 16:15:43 - diff_2025-11-23_16-15-35.tar.gz appliqué
+[SUCCESS] 2025-11-23 16:15:43 - Restauration complète terminée.
+[SUCCESS] 2025-11-23 16:15:43 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 16:15:45 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 16:15:45 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 16:15:45 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 16:15:45 - Recherche du fichier readme.txt dans les archives
+[INFO] 2025-11-23 16:15:45 - Fichier trouvé dans DIFF : diff_2025-11-23_16-15-35.tar.gz
+[SUCCESS] 2025-11-23 16:15:45 - Fichier readme.txt restauré avec succès
+[SUCCESS] 2025-11-23 16:15:45 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 16:16:45 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 16:16:45 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 16:16:45 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 16:16:45 - Restauration complète depuis full_2025-11-23_16-16-34.tar.gz
+[WARN] 2025-11-23 16:16:45 - [DRY-RUN] Mode de test activé
+[INFO] 2025-11-23 16:16:45 - [DRY-RUN] Contenu du FULL:
+[INFO] 2025-11-23 16:16:45 - [DRY-RUN] Incrementals à appliquer:
+[INFO] 2025-11-23 16:16:45 -   - inc_2025-11-23_16-16-38.tar.gz
+[INFO] 2025-11-23 16:16:45 - [DRY-RUN] Diffs à appliquer:
+[INFO] 2025-11-23 16:16:45 -   - diff_2025-11-23_16-16-42.tar.gz
+[INFO] 2025-11-23 16:16:45 - [DRY-RUN] Aucun fichier n'a été restauré.
+[SUCCESS] 2025-11-23 16:16:45 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 16:16:47 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 16:16:47 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 16:16:47 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 16:16:47 - Restauration complète depuis full_2025-11-23_16-16-34.tar.gz
+[INFO] 2025-11-23 16:16:47 - Restauration du FULL...
+[SUCCESS] 2025-11-23 16:16:47 - FULL restauré
+[INFO] 2025-11-23 16:16:47 - Application des incrementals...
+[INFO] 2025-11-23 16:16:47 - Application de inc_2025-11-23_16-16-38.tar.gz
+[SUCCESS] 2025-11-23 16:16:47 - inc_2025-11-23_16-16-38.tar.gz appliqué
+[INFO] 2025-11-23 16:16:47 - Application des diffs...
+[INFO] 2025-11-23 16:16:47 - Application de diff_2025-11-23_16-16-42.tar.gz
+[SUCCESS] 2025-11-23 16:16:47 - diff_2025-11-23_16-16-42.tar.gz appliqué
+[SUCCESS] 2025-11-23 16:16:47 - Restauration complète terminée.
+[SUCCESS] 2025-11-23 16:16:47 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 16:16:49 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 16:16:49 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 16:16:49 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 16:16:49 - Recherche du fichier readme.txt dans les archives
+[INFO] 2025-11-23 16:16:49 - Fichier trouvé dans DIFF : diff_2025-11-23_16-16-42.tar.gz
+[SUCCESS] 2025-11-23 16:16:49 - Fichier readme.txt restauré avec succès
+[SUCCESS] 2025-11-23 16:16:49 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 16:18:11 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 16:18:12 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 16:18:12 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 16:18:12 - Restauration complète depuis full_2025-11-23_16-18-00.tar.gz
+[WARN] 2025-11-23 16:18:12 - [DRY-RUN] Mode de test activé
+[INFO] 2025-11-23 16:18:12 - [DRY-RUN] Contenu du FULL:
+[INFO] 2025-11-23 16:18:12 - [DRY-RUN] Incrementals à appliquer:
+[INFO] 2025-11-23 16:18:12 -   - inc_2025-11-23_16-18-04.tar.gz
+[INFO] 2025-11-23 16:18:12 - [DRY-RUN] Diffs à appliquer:
+[INFO] 2025-11-23 16:18:12 -   - diff_2025-11-23_16-18-09.tar.gz
+[INFO] 2025-11-23 16:18:12 - [DRY-RUN] Aucun fichier n'a été restauré.
+[SUCCESS] 2025-11-23 16:18:12 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 16:18:13 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 16:18:13 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 16:18:13 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 16:18:13 - Restauration complète depuis full_2025-11-23_16-18-00.tar.gz
+[INFO] 2025-11-23 16:18:13 - Restauration du FULL...
+[SUCCESS] 2025-11-23 16:18:13 - FULL restauré
+[INFO] 2025-11-23 16:18:13 - Application des incrementals...
+[INFO] 2025-11-23 16:18:13 - Application de inc_2025-11-23_16-18-04.tar.gz
+[SUCCESS] 2025-11-23 16:18:13 - inc_2025-11-23_16-18-04.tar.gz appliqué
+[INFO] 2025-11-23 16:18:13 - Application des diffs...
+[INFO] 2025-11-23 16:18:13 - Application de diff_2025-11-23_16-18-09.tar.gz
+[SUCCESS] 2025-11-23 16:18:13 - diff_2025-11-23_16-18-09.tar.gz appliqué
+[SUCCESS] 2025-11-23 16:18:13 - Restauration complète terminée.
+[SUCCESS] 2025-11-23 16:18:13 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 16:18:15 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 16:18:15 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 16:18:15 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 16:18:15 - Recherche du fichier readme.txt dans les archives
+[INFO] 2025-11-23 16:18:15 - Fichier trouvé dans DIFF : diff_2025-11-23_16-18-09.tar.gz
+[SUCCESS] 2025-11-23 16:18:15 - Fichier readme.txt restauré avec succès
+[SUCCESS] 2025-11-23 16:18:15 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 21:13:43 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 21:13:43 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 21:13:44 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 21:13:44 - Restauration complète depuis full_2025-11-23_21-13-31.tar.gz
+[WARN] 2025-11-23 21:13:44 - [DRY-RUN] Mode de test activé
+[INFO] 2025-11-23 21:13:44 - [DRY-RUN] Contenu du FULL:
+[INFO] 2025-11-23 21:13:44 - [DRY-RUN] Incrementals à appliquer:
+[INFO] 2025-11-23 21:13:44 -   - inc_2025-11-23_21-13-36.tar.gz
+[INFO] 2025-11-23 21:13:44 - [DRY-RUN] Diffs à appliquer:
+[INFO] 2025-11-23 21:13:44 -   - diff_2025-11-23_21-13-40.tar.gz
+[INFO] 2025-11-23 21:13:44 - [DRY-RUN] Aucun fichier n'a été restauré.
+[SUCCESS] 2025-11-23 21:13:44 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 21:13:46 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 21:13:46 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 21:13:46 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 21:13:46 - Restauration complète depuis full_2025-11-23_21-13-31.tar.gz
+[INFO] 2025-11-23 21:13:46 - Restauration du FULL...
+[SUCCESS] 2025-11-23 21:13:46 - FULL restauré
+[INFO] 2025-11-23 21:13:46 - Application des incrementals...
+[INFO] 2025-11-23 21:13:46 - Application de inc_2025-11-23_21-13-36.tar.gz
+[SUCCESS] 2025-11-23 21:13:46 - inc_2025-11-23_21-13-36.tar.gz appliqué
+[INFO] 2025-11-23 21:13:46 - Application des diffs...
+[INFO] 2025-11-23 21:13:46 - Application de diff_2025-11-23_21-13-40.tar.gz
+[SUCCESS] 2025-11-23 21:13:46 - diff_2025-11-23_21-13-40.tar.gz appliqué
+[SUCCESS] 2025-11-23 21:13:46 - Restauration complète terminée.
+[SUCCESS] 2025-11-23 21:13:46 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 21:13:48 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 21:13:48 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 21:13:48 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 21:13:48 - Recherche du fichier readme.txt dans les archives
+[INFO] 2025-11-23 21:13:48 - Fichier trouvé dans DIFF : diff_2025-11-23_21-13-40.tar.gz
+[SUCCESS] 2025-11-23 21:13:48 - Fichier readme.txt restauré avec succès
+[SUCCESS] 2025-11-23 21:13:48 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 21:28:52 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 21:28:52 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 21:28:52 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 21:28:52 - Restauration complète depuis full_2025-11-23_21-28-39.tar.gz
+[WARN] 2025-11-23 21:28:52 - [DRY-RUN] Mode de test activé
+[INFO] 2025-11-23 21:28:52 - [DRY-RUN] Contenu du FULL:
+[INFO] 2025-11-23 21:28:52 - [DRY-RUN] Incrementals à appliquer:
+[INFO] 2025-11-23 21:28:52 -   - inc_2025-11-23_21-28-44.tar.gz
+[INFO] 2025-11-23 21:28:52 - [DRY-RUN] Diffs à appliquer:
+[INFO] 2025-11-23 21:28:52 -   - diff_2025-11-23_21-28-49.tar.gz
+[INFO] 2025-11-23 21:28:52 - [DRY-RUN] Aucun fichier n'a été restauré.
+[SUCCESS] 2025-11-23 21:28:52 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 21:28:55 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 21:28:55 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 21:28:55 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 21:28:55 - Restauration complète depuis full_2025-11-23_21-28-39.tar.gz
+[INFO] 2025-11-23 21:28:55 - Restauration du FULL...
+[SUCCESS] 2025-11-23 21:28:55 - FULL restauré
+[INFO] 2025-11-23 21:28:55 - Application des incrementals...
+[INFO] 2025-11-23 21:28:55 - Application de inc_2025-11-23_21-28-44.tar.gz
+[SUCCESS] 2025-11-23 21:28:55 - inc_2025-11-23_21-28-44.tar.gz appliqué
+[INFO] 2025-11-23 21:28:55 - Application des diffs...
+[INFO] 2025-11-23 21:28:55 - Application de diff_2025-11-23_21-28-49.tar.gz
+[SUCCESS] 2025-11-23 21:28:55 - diff_2025-11-23_21-28-49.tar.gz appliqué
+[SUCCESS] 2025-11-23 21:28:55 - Restauration complète terminée.
+[SUCCESS] 2025-11-23 21:28:55 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 21:28:58 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 21:28:58 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 21:28:58 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 21:28:58 - Recherche du fichier readme.txt dans les archives
+[INFO] 2025-11-23 21:28:58 - Fichier trouvé dans DIFF : diff_2025-11-23_21-28-49.tar.gz
+[SUCCESS] 2025-11-23 21:28:58 - Fichier readme.txt restauré avec succès
+[SUCCESS] 2025-11-23 21:28:58 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 21:30:38 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 21:30:38 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 21:30:38 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 21:30:39 - Restauration complète depuis full_2025-11-23_21-30-27.tar.gz
+[WARN] 2025-11-23 21:30:39 - [DRY-RUN] Mode de test activé
+[INFO] 2025-11-23 21:30:39 - [DRY-RUN] Contenu du FULL:
+[INFO] 2025-11-23 21:30:39 - [DRY-RUN] Incrementals à appliquer:
+[INFO] 2025-11-23 21:30:39 -   - inc_2025-11-23_21-30-30.tar.gz
+[INFO] 2025-11-23 21:30:39 - [DRY-RUN] Diffs à appliquer:
+[INFO] 2025-11-23 21:30:39 -   - diff_2025-11-23_21-30-35.tar.gz
+[INFO] 2025-11-23 21:30:39 - [DRY-RUN] Aucun fichier n'a été restauré.
+[SUCCESS] 2025-11-23 21:30:39 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 21:30:42 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 21:30:42 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 21:30:42 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 21:30:42 - Restauration complète depuis full_2025-11-23_21-30-27.tar.gz
+[INFO] 2025-11-23 21:30:42 - Restauration du FULL...
+[SUCCESS] 2025-11-23 21:30:42 - FULL restauré
+[INFO] 2025-11-23 21:30:42 - Application des incrementals...
+[INFO] 2025-11-23 21:30:42 - Application de inc_2025-11-23_21-30-30.tar.gz
+[SUCCESS] 2025-11-23 21:30:42 - inc_2025-11-23_21-30-30.tar.gz appliqué
+[INFO] 2025-11-23 21:30:42 - Application des diffs...
+[INFO] 2025-11-23 21:30:42 - Application de diff_2025-11-23_21-30-35.tar.gz
+[SUCCESS] 2025-11-23 21:30:42 - diff_2025-11-23_21-30-35.tar.gz appliqué
+[SUCCESS] 2025-11-23 21:30:42 - Restauration complète terminée.
+[SUCCESS] 2025-11-23 21:30:42 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 21:30:45 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 21:30:45 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 21:30:45 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 21:30:45 - Recherche du fichier readme.txt dans les archives
+[INFO] 2025-11-23 21:30:45 - Fichier trouvé dans DIFF : diff_2025-11-23_21-30-35.tar.gz
+[SUCCESS] 2025-11-23 21:30:45 - Fichier readme.txt restauré avec succès
+[SUCCESS] 2025-11-23 21:30:45 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 21:34:03 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 21:34:03 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 21:34:03 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 21:34:03 - Restauration complète depuis full_2025-11-23_21-33-52.tar.gz
+[WARN] 2025-11-23 21:34:04 - [DRY-RUN] Mode de test activé
+[INFO] 2025-11-23 21:34:04 - [DRY-RUN] Contenu du FULL:
+[INFO] 2025-11-23 21:34:04 - [DRY-RUN] Incrementals à appliquer:
+[INFO] 2025-11-23 21:34:04 -   - inc_2025-11-23_21-33-56.tar.gz
+[INFO] 2025-11-23 21:34:04 - [DRY-RUN] Diffs à appliquer:
+[INFO] 2025-11-23 21:34:04 -   - diff_2025-11-23_21-34-00.tar.gz
+[INFO] 2025-11-23 21:34:04 - [DRY-RUN] Aucun fichier n'a été restauré.
+[SUCCESS] 2025-11-23 21:34:04 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 21:34:13 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 21:34:13 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 21:34:13 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 21:34:13 - Restauration complète depuis full_2025-11-23_21-33-52.tar.gz
+[INFO] 2025-11-23 21:34:13 - Restauration du FULL...
+[SUCCESS] 2025-11-23 21:34:13 - FULL restauré
+[INFO] 2025-11-23 21:34:13 - Application des incrementals...
+[INFO] 2025-11-23 21:34:13 - Application de inc_2025-11-23_21-33-56.tar.gz
+[SUCCESS] 2025-11-23 21:34:13 - inc_2025-11-23_21-33-56.tar.gz appliqué
+[INFO] 2025-11-23 21:34:13 - Application des diffs...
+[INFO] 2025-11-23 21:34:13 - Application de diff_2025-11-23_21-34-00.tar.gz
+[SUCCESS] 2025-11-23 21:34:13 - diff_2025-11-23_21-34-00.tar.gz appliqué
+[SUCCESS] 2025-11-23 21:34:13 - Restauration complète terminée.
+[SUCCESS] 2025-11-23 21:34:13 - Restauration terminée (logs : logs/restore_2025-11-23.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-23 21:34:15 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-23 21:34:15 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-23 21:34:15 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-23 21:34:15 - Recherche du fichier readme.txt dans les archives
+[INFO] 2025-11-23 21:34:15 - Fichier trouvé dans DIFF : diff_2025-11-23_21-34-00.tar.gz
+[SUCCESS] 2025-11-23 21:34:15 - Fichier readme.txt restauré avec succès
+[SUCCESS] 2025-11-23 21:34:15 - Restauration terminée (logs : logs/restore_2025-11-23.log)

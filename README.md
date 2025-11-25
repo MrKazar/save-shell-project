@@ -690,13 +690,5 @@ tar -tzf backup/FULL/full_*.tar.gz | head
 
 ---
 
-## 📞 Support & Contact
-
-Pour toute question ou amélioration suggérée, consulter :
-- Documentation intégrée dans chaque script (en-têtes)
-- USAGE_GUIDE.md pour les exemples d'utilisation
-- Logs dans `backup-system/logs/` pour le troubleshooting
-
----
-
-Créé avec ❤️ en 2025
+## Auteurs
+Crée par **MrKazar**, **VikusCode** et **NDesumeur**

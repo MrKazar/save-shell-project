@@ -28,3 +28,17 @@
 [INFO] 2025-11-25 22:10:54 - Métadonnées créées : diff_2025-11-25_22-10-54.tar.gz.meta.json
 [SUCCESS] 2025-11-25 22:10:54 - Backup DIFF terminé : diff_2025-11-25_22-10-54.tar.gz
 [SUCCESS] 2025-11-25 22:10:54 - Backup terminé avec succès (logs : logs/backup_2025-11-25.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-25 22:12:57 - Nouvelle session
+═══════════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-25 22:13:33 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-25 22:13:33 - Démarrage du backup - Profil: document, Type: full
+[INFO] 2025-11-25 22:13:33 - Source: ./document, Destination: ./backup
+[INFO] 2025-11-25 22:13:33 - Démarrage du backup FULL pour le profil document
+[SUCCESS] 2025-11-25 22:13:33 - Backup FULL terminé : full_2025-11-25_22-13-33.tar.gz
+[INFO] 2025-11-25 22:13:33 - Métadonnées créées : full_2025-11-25_22-13-33.tar.gz.meta.json
+[SUCCESS] 2025-11-25 22:13:34 - Backup terminé avec succès (logs : logs/backup_2025-11-25.log)

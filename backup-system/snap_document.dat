@@ -1,1 +1,14 @@
-full_2025-11-24_16-02-12.tar.gz
+demo_diff.txt
+cache/cached_file.txt
+cache/browser.cache
+config.json
+subdir2/fileC.txt
+subdir2/app.log
+subdir1/temp.tmp
+subdir1/data.txt
+subdir1/nouveau.txt
+subdir1/fileB.tmp
+subdir1/fileA.txt
+demo_full.txt
+demo_incr.txt
+readme.txt

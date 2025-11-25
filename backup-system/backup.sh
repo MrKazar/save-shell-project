@@ -10,7 +10,7 @@ log_session_start
 PROFILE=""
 BACKUP_TYPE=""
 
-while [[ $# -gt 0 ]]; do
+while [[ $# -gt 0 ]]; dode  
     case "$1" in
         --profile) PROFILE="$2"; shift 2 ;;
         --type) BACKUP_TYPE="$2"; shift 2 ;;

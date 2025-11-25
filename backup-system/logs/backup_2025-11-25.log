@@ -1,0 +1,30 @@
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-25 22:10:37 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-25 22:10:37 - Démarrage du backup - Profil: document, Type: full
+[INFO] 2025-11-25 22:10:37 - Source: ./document, Destination: ./backup
+[INFO] 2025-11-25 22:10:37 - Démarrage du backup FULL pour le profil document
+[SUCCESS] 2025-11-25 22:10:37 - Backup FULL terminé : full_2025-11-25_22-10-37.tar.gz
+[INFO] 2025-11-25 22:10:37 - Métadonnées créées : full_2025-11-25_22-10-37.tar.gz.meta.json
+[SUCCESS] 2025-11-25 22:10:37 - Backup terminé avec succès (logs : logs/backup_2025-11-25.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-25 22:10:48 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-25 22:10:48 - Démarrage du backup - Profil: document, Type: incremental
+[INFO] 2025-11-25 22:10:48 - Source: ./document, Destination: ./backup
+[INFO] 2025-11-25 22:10:48 - Démarrage du backup INCREMENTAL pour le profil document
+[SUCCESS] 2025-11-25 22:10:48 - Backup INCREMENTAL terminé : inc_2025-11-25_22-10-48.tar.gz
+[INFO] 2025-11-25 22:10:48 - Métadonnées créées : inc_2025-11-25_22-10-48.tar.gz.meta.json
+[SUCCESS] 2025-11-25 22:10:48 - Backup terminé avec succès (logs : logs/backup_2025-11-25.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-25 22:10:54 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-25 22:10:54 - Démarrage du backup - Profil: document, Type: diff
+[INFO] 2025-11-25 22:10:54 - Source: ./document, Destination: ./backup
+[INFO] 2025-11-25 22:10:54 - Démarrage du backup DIFFERENTIEL pour le profil document
+[INFO] 2025-11-25 22:10:54 - Métadonnées créées : diff_2025-11-25_22-10-54.tar.gz.meta.json
+[SUCCESS] 2025-11-25 22:10:54 - Backup DIFF terminé : diff_2025-11-25_22-10-54.tar.gz
+[SUCCESS] 2025-11-25 22:10:54 - Backup terminé avec succès (logs : logs/backup_2025-11-25.log)

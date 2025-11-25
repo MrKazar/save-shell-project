@@ -93,24 +93,32 @@ restore_full() {
 # =====================
 restore_file() {
     local file="$1"
+    local filename=$(basename "$file")
     local restored=false
 
-    log INFO "Recherche du fichier $file dans les archives"
+    log INFO "Recherche du fichier $filename dans les archives"
 
     for type in FULL INC DIFF; do
         [[ ! -d "$DST_DIR/$type" ]] && continue
         for archive in "$DST_DIR/$type"/*.tar.gz; do
             [[ -f "$archive" ]] || continue
-            if tar -tzf "$archive" | grep -q "^./$(basename "$file")$"; then
-                log INFO "Fichier trouvé dans $type : $(basename "$archive")"
+            
+            # Chercher le fichier dans l'archive (peut être dans n'importe quel chemin)
+            local matching_file=$(tar -tzf "$archive" | grep -E "(^|/)${filename}$" | head -n1 || true)
+            
+            if [[ -n "$matching_file" ]]; then
+                log INFO "Fichier trouvé dans $type : $(basename "$archive") → $matching_file"
                 if [[ "$DRY_RUN" = true ]]; then
-                    log WARN "[DRY-RUN] $file serait restauré depuis $archive"
+                    log WARN "[DRY-RUN] $matching_file serait restauré depuis $archive"
                 else
-                    if tar -xzf "$archive" -C "$SRC_DIR" "./$(basename "$file")" 2>/dev/null; then
-                        log SUCCESS "Fichier $file restauré avec succès"
+                    # Créer le dossier parent s'il n'existe pas
+                    mkdir_safe "$(dirname "$SRC_DIR")"
+                    
+                    if tar -xzf "$archive" -C "$(dirname "$SRC_DIR")" "$matching_file" 2>/dev/null; then
+                        log SUCCESS "Fichier $matching_file restauré avec succès"
                         restored=true
                     else
-                        log ERROR "Échec de restauration du fichier $file"
+                        log ERROR "Échec de restauration du fichier $matching_file"
                         return 1
                     fi
                 fi
@@ -120,7 +128,7 @@ restore_file() {
     done
 
     if [[ "$restored" = false ]]; then
-        log ERROR "Fichier $file introuvable dans les archives"
+        log ERROR "Fichier $filename introuvable dans les archives"
         exit 1
     fi
 }

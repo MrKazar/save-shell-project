@@ -1,7 +1,90 @@
 #!/bin/bash
-# =============================================================================
-# Upload Script - Envoie les backups vers le serveur distant
-# =============================================================================
+################################################################################
+# UPLOAD.SH - Envoie les Backups vers le Serveur Distant
+################################################################################
+#
+# DESCRIPTION :
+#   Télécharge les archives de backup vers le serveur Flask distant.
+#   Supporte upload de types FULL, INC, DIFF.
+#   Vérifie disponibilité du serveur avant upload.
+#   Récupère et sauvegarde les checksums distants.
+#
+# USAGE :
+#   ./upload.sh [type]
+#
+# PARAMÈTRES :
+#   type (optionnel) : Type(s) à uploader
+#                      Valeurs : full, incremental, diff
+#                      Si absent : upload tous les types
+#
+# EXEMPLES :
+#   # Upload archives FULL
+#   ./upload.sh full
+#
+#   # Upload archives INCREMENTAL
+#   ./upload.sh incremental
+#
+#   # Upload archives DIFFERENTIAL
+#   ./upload.sh diff
+#
+#   # Upload tous les types
+#   ./upload.sh
+#
+#   # Depuis serveur personnalisé
+#   SERVER_URL=http://192.168.1.100:5000 ./upload.sh full
+#
+# VARIABLES D'ENVIRONNEMENT :
+#   SERVER_URL   : URL du serveur (défaut: http://localhost:5000)
+#   BACKUP_DIR   : Dossier des backups (défaut: ./backup)
+#
+# EXEMPLES AVEC VARIABLES :
+#   SERVER_URL=http://192.168.1.100:5000 ./upload.sh full
+#   BACKUP_DIR=/data/backups ./upload.sh
+#
+# FONCTIONNEMENT :
+#   1. Vérifie la disponibilité du serveur
+#   2. Parcourt le dossier backup/[FULL|INC|DIFF]/
+#   3. Envoie chaque fichier .tar.gz via HTTP multipart
+#   4. Paramètres envoyés à /upload :
+#      - file : Contenu du fichier
+#      - type : Type de backup (FULL|INC|DIFF)
+#      - profile : Nom du profil (extrait du .tar.gz)
+#   5. Récupère le MD5 du serveur (JSON response)
+#   6. Sauvegarde dans backup/*/< timestamp>.md5 local
+#
+# CODES HTTP :
+#   201 : Upload réussi ✓
+#   400 : Erreur paramètres
+#   413 : Fichier trop gros
+#   500 : Erreur serveur
+#
+# FICHIERS LUS :
+#   - backup/FULL/*.tar.gz : Archives FULL
+#   - backup/INC/*.tar.gz : Archives INC
+#   - backup/DIFF/*.tar.gz : Archives DIFF
+#
+# FICHIERS CRÉÉS/MODIFIÉS :
+#   - backup/FULL/*.md5 : Hash distant sauvegardé localement
+#   - backup/INC/*.md5 : Hash distant sauvegardé localement
+#   - backup/DIFF/*.md5 : Hash distant sauvegardé localement
+#
+# DÉPENDANCES :
+#   - curl : Requêtes HTTP multipart
+#   - jq : Parsing JSON (optionnel pour affichage)
+#   - Server Flask : Application Flask avec endpoint /upload
+#
+# ERREURS POSSIBLES :
+#   "Serveur indisponible" - Le serveur n'est pas accessible
+#   "Pas d'archives trouvées" - Aucun fichier .tar.gz dans backup/
+#   "Erreur lors de l'upload" - Problème lors du POST
+#
+# NOTES :
+#   - L'upload utilise multipart/form-data pour les gros fichiers
+#   - Les checksums distants sont sauvegardés localement pour vérification
+#   - Mode sûr (set -euo pipefail) : erreur = arrêt immédiat
+#
+################################################################################
+
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

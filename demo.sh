@@ -1,4 +1,61 @@
 #!/bin/bash
+################################################################################
+# DEMO.SH - Démonstration Complète du Système de Backup
+################################################################################
+#
+# DESCRIPTION :
+#   Script de démonstration interactif montrant toutes les fonctionnalités :
+#   - Création de backups (FULL, INC, DIFF)
+#   - Upload vers serveur distant
+#   - Vérification de synchronisation
+#   - Restauration complète et sélective
+#   - Affichage de l'état du stockage
+#
+# USAGE :
+#   ./demo.sh
+#
+# ÉTAPES DE LA DÉMO :
+#   1. Vérification de l'environnement
+#   2. Préparation des données de test
+#   3. Affichage de l'état initial
+#   4. Création d'un backup FULL
+#   5. Modification des données
+#   6. Création de backups INC et DIFF
+#   7. Affichage de l'état après backups
+#   8. Upload au serveur (si disponible)
+#   9. Vérification de synchronisation
+#   10. Restauration complète
+#   11. Restauration sélective
+#   12. Affichage de l'état final
+#
+# EXÉCUTION DEPUIS :
+#   - Racine du projet : ./demo.sh
+#   - Dossier backup-system : ../demo.sh
+#
+# DURÉE ESTIMÉE :
+#   ~2 minutes avec serveur
+#   ~1 minute sans serveur
+#
+# FICHIERS CRÉÉS :
+#   - backup/FULL/*.tar.gz : Archives FULL
+#   - backup/INC/*.tar.gz : Archives INCREMENTAL
+#   - backup/DIFF/*.tar.gz : Archives DIFFERENTIAL
+#   - logs/demo_YYYY-MM-DD.log : Logs de la démo
+#
+# DÉPENDANCES :
+#   - ./backup.sh : Script de backup
+#   - ./restore.sh : Script de restauration
+#   - ./upload.sh : Script d'upload (optionnel)
+#   - ./verify_sync.sh : Script de vérification (optionnel)
+#   - lib/utils.sh : Bibliothèque utilitaire
+#
+# NOTE :
+#   - La démo peut s'exécuter sans serveur (étapes 1-7, 10-12)
+#   - Pour les étapes 8-9, le serveur doit être démarré
+#   - Les données de test sont automatiquement créées
+#
+################################################################################
+
 set -euo pipefail
 
 BLUE='\033[0;34m'

@@ -1,7 +1,91 @@
 #!/bin/bash
-# =============================================================================
-# Download Script - Télécharge les backups depuis le serveur distant
-# =============================================================================
+################################################################################
+# DOWNLOAD.SH - Télécharge les Backups depuis le Serveur
+################################################################################
+#
+# DESCRIPTION :
+#   Télécharge les archives de backup du serveur Flask distant.
+#   Supporte download de types FULL, INC, DIFF.
+#   Vérifie l'intégrité avec MD5 après téléchargement.
+#
+# USAGE :
+#   ./download.sh [type]
+#
+# PARAMÈTRES :
+#   type (optionnel) : Type(s) à télécharger
+#                      Valeurs : full, incremental, diff
+#                      Si absent : télécharge tous les types
+#
+# EXEMPLES :
+#   # Télécharger archives FULL
+#   ./download.sh full
+#
+#   # Télécharger archives INCREMENTAL
+#   ./download.sh incremental
+#
+#   # Télécharger archives DIFFERENTIAL
+#   ./download.sh diff
+#
+#   # Télécharger tous les types
+#   ./download.sh
+#
+#   # Depuis serveur personnalisé
+#   SERVER_URL=http://192.168.1.100:5000 ./download.sh full
+#
+# VARIABLES D'ENVIRONNEMENT :
+#   SERVER_URL   : URL du serveur (défaut: http://localhost:5000)
+#   BACKUP_DIR   : Dossier de destination (défaut: ./backup)
+#
+# EXEMPLES AVEC VARIABLES :
+#   SERVER_URL=http://192.168.1.100:5000 ./download.sh
+#   BACKUP_DIR=/data/backups ./download.sh full
+#
+# FONCTIONNEMENT :
+#   1. Vérifie la disponibilité du serveur
+#   2. Récupère la liste des archives : GET /list/<type>
+#   3. Crée les dossiers FULL/, INC/, DIFF/ localement
+#   4. Télécharge chaque fichier en streaming
+#   5. Vérifie le MD5 de chaque fichier
+#   6. Affiche un résumé du téléchargement
+#
+# ENDPOINTS UTILISÉS :
+#   GET /list/<type> : Récupère liste des archives
+#   GET /download/<type>/<filename> : Télécharge le fichier
+#
+# FICHIERS CRÉÉS :
+#   - backup/FULL/*.tar.gz : Archives téléchargées (complètes)
+#   - backup/INC/*.tar.gz : Archives téléchargées (incrémentales)
+#   - backup/DIFF/*.tar.gz : Archives téléchargées (différentielles)
+#
+# VÉRIFICATION D'INTÉGRITÉ :
+#   - MD5 vérifié après chaque téléchargement
+#   - Les fichiers corrompus sont signalés
+#   - Affiche [SUCCESS] ou [ERROR] par fichier
+#
+# DÉPENDANCES :
+#   - curl : Téléchargements HTTP
+#   - jq : Parsing JSON
+#   - md5sum : Vérification d'intégrité
+#   - Server Flask : Application Flask avec endpoints /list et /download
+#
+# CODES HTTP :
+#   200 : Fichier trouvé et téléchargé ✓
+#   404 : Fichier non trouvé
+#   500 : Erreur serveur
+#
+# ERREURS POSSIBLES :
+#   "Serveur indisponible" - Le serveur n'est pas accessible
+#   "Aucune archive trouvée" - Pas de fichier à télécharger
+#   "MD5 invalide" - Fichier corrompu
+#
+# NOTES :
+#   - Les fichiers existants sont écrasés
+#   - Téléchargement en streaming pour économiser mémoire
+#   - Vérification MD5 automatique après chaque téléchargement
+#   - Mode sûr (set -euo pipefail) : erreur = arrêt immédiat
+#
+################################################################################
+
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

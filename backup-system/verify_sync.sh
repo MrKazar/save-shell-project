@@ -1,39 +1,93 @@
 #!/bin/bash
-# =============================================================================
-# VERIFY_SYNC.SH - Script de vérification de synchronisation
-# =============================================================================
-# Description:
-#   Compare les backups locaux avec ceux présents sur le serveur distant
-#   Détecte les fichiers manquants, les différences de hash, etc.
+################################################################################
+# VERIFY_SYNC.SH - Vérification de Synchronisation Local/Distant
+################################################################################
 #
-# Usage:
-#   ./verify_sync.sh           : Vérifie la synchronisation
-#   ./verify_sync.sh --stats   : Affiche les statistiques du serveur
+# DESCRIPTION :
+#   Compare les backups locaux avec ceux présents sur le serveur distant.
+#   Détecte les fichiers manquants, les différences de hash, l'état sync.
+#   Fournit des rapports synthétiques ou détaillés.
 #
-# Variables d'environnement:
+# USAGE :
+#   ./verify_sync.sh [OPTIONS]
+#
+# OPTIONS :
+#   (aucune)        : Rapport synthétique
+#   --stats         : Statistiques du serveur
+#   --report        : Rapport détaillé avec détails
+#
+# EXEMPLES :
+#   # Rapport synthétique (rapide)
+#   ./verify_sync.sh
+#
+#   # Rapport détaillé
+#   ./verify_sync.sh --report
+#
+#   # Statistiques du serveur
+#   ./verify_sync.sh --stats
+#
+#   # Depuis serveur personnalisé
+#   SERVER_URL=http://192.168.1.100:5000 ./verify_sync.sh
+#
+# VARIABLES D'ENVIRONNEMENT :
 #   SERVER_URL  : URL du serveur (défaut: http://localhost:5000)
 #   BACKUP_DIR  : Dossier des backups locaux (défaut: ./backup)
 #
-# Exemples:
-#   ./verify_sync.sh
-#   ./verify_sync.sh --stats
-#   SERVER_URL=http://192.168.1.100:5000 ./verify_sync.sh
+# VÉRIFICATIONS EFFECTUÉES :
+#   1. Nombre de fichiers local vs distant
+#   2. Hash MD5 de chaque fichier
+#   3. Fichiers manquants sur le serveur
+#   4. Fichiers en trop sur le serveur
+#   5. Fichiers avec hash différent
+#   6. Cohérence des types (FULL/INC/DIFF)
 #
-# Vérifications effectuées:
-#   - Nombre de fichiers local vs distant
-#   - Hash MD5 de chaque fichier
-#   - Fichiers manquants sur le serveur
-#   - Fichiers en trop sur le serveur
+# STATUTS POSSIBLES :
+#   SYNCHRONIZED      : Tout est synchronisé ✓
+#   OUT_OF_SYNC       : Des différences détectées ✗
+#   MISSING_LOCAL     : Fichiers manquants localement
+#   MISSING_REMOTE    : Fichiers manquants sur serveur
+#   HASH_MISMATCH     : Hashes différents
 #
-# Statuts possibles:
-#   SYNCHRONIZED    : Tout est synchronisé
-#   OUT_OF_SYNC     : Des différences ont été détectées
+# ENDPOINTS API UTILISÉS :
+#   GET /list : Récupère la liste des backups serveur
+#   GET /stats : Statistiques du serveur
+#   POST /verify : Vérifie synchronisation
 #
-# Dépendances:
-#   - curl   : Pour les requêtes HTTP
-#   - jq     : Pour le parsing JSON
-#   - md5sum : Pour calculer les hash (ou md5 sur Mac)
-# =============================================================================
+# RAPPORT SYNTHÉTIQUE (défaut) :
+#   [INFO] Vérification de la synchronisation...
+#   [INFO] Fichiers locaux: 1 FULL, 1 INC, 0 DIFF
+#   [INFO] Fichiers distants: 1 FULL, 1 INC, 0 DIFF
+#   [SUCCESS] SYNCHRONIZED ✓
+#
+# RAPPORT DÉTAILLÉ (--report) :
+#   Détail fichier par fichier
+#   Hash local vs distant
+#   Fichiers manquants précisément listés
+#
+# STATISTIQUES SERVEUR (--stats) :
+#   Taille totale des backups
+#   Nombre de fichiers par type
+#   Date des derniers backups
+#
+# DÉPENDANCES :
+#   - curl : Requêtes HTTP
+#   - jq : Parsing JSON
+#   - md5sum : Calcul de hash (ou md5 sur Mac)
+#   - Server Flask : Endpoints /list et /stats
+#
+# FICHIERS LUS :
+#   - backup/FULL/*.tar.gz : Archives locales FULL
+#   - backup/INC/*.tar.gz : Archives locales INC
+#   - backup/DIFF/*.tar.gz : Archives locales DIFF
+#   - backup/*/< timestamp>.md5 : Checksums locaux
+#
+# NOTES :
+#   - Compare checksums pour détecter modifications
+#   - Rapport quick (synthétique) par défaut
+#   - Mode sûr (set -euo pipefail) : erreur = arrêt immédiat
+#   - Utile pour vérifier avant archivage/restauration
+#
+################################################################################
 
 set -euo pipefail
 

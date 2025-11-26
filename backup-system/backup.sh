@@ -1,4 +1,86 @@
 #!/bin/bash
+################################################################################
+# BACKUP.SH - Création de Backups (FULL, INC, DIFF)
+################################################################################
+#
+# DESCRIPTION :
+#   Crée des archives tar.gz compressées des fichiers source.
+#   Supporte trois types de backup :
+#   - FULL (complet) : Archive complète de tous les fichiers
+#   - INCREMENTAL (incrémental) : Fichiers modifiés depuis dernier FULL
+#   - DIFFERENTIAL (différentiel) : Changes depuis dernier FULL (indépendant)
+#
+# USAGE :
+#   ./backup.sh --profile <nom> --type <type>
+#
+# PARAMÈTRES :
+#   --profile <nom>  : Profil de configuration (obligatoire)
+#                      Lit depuis profiles/<nom>.yaml
+#   --type <type>    : Type de backup (obligatoire)
+#                      Valeurs : full, incremental, diff
+#
+# EXEMPLES :
+#   # Backup complet
+#   ./backup.sh --profile document --type full
+#
+#   # Backup incrémental (modifs depuis dernier FULL)
+#   ./backup.sh --profile document --type incremental
+#
+#   # Backup différentiel (changes depuis FULL)
+#   ./backup.sh --profile document --type diff
+#
+# FONCTIONNEMENT :
+#   1. Lit la configuration depuis profiles/<profil>.yaml
+#   2. Vérifie que le dossier source existe
+#   3. Crée l'archive selon le type demandé
+#   4. Génère le checksum MD5
+#   5. Crée un fichier snapshot pour suivi
+#   6. Enregistre l'opération dans les logs
+#
+# FICHIERS LUS :
+#   - profiles/<profil>.yaml : Configuration source/destination
+#   - snap_<profil>.dat : Snapshot du dernier backup FULL (pour INC/DIFF)
+#
+# FICHIERS CRÉÉS :
+#   - backup/FULL/<timestamp>.tar.gz : Archive complète
+#   - backup/INC/<timestamp>.tar.gz : Archive incrémentale
+#   - backup/DIFF/<timestamp>.tar.gz : Archive différentielle
+#   - backup/*/< timestamp>.md5 : Checksum MD5
+#   - snap_<profil>.dat : Snapshot (pour suivi INC/DIFF)
+#   - logs/backup_YYYY-MM-DD.log : Fichier de log quotidien
+#
+# FORMAT DES ARCHIVES :
+#   Nom : <type>_YYYY-MM-DD_HH-MM-SS.tar.gz
+#   Exemples :
+#   - full_2025-11-26_14-32-45.tar.gz
+#   - inc_2025-11-26_15-10-22.tar.gz
+#   - diff_2025-11-26_16-45-18.tar.gz
+#
+# STRATÉGIE RECOMMANDÉE :
+#   Lundi    : ./backup.sh --profile document --type full
+#   Mar-Dim  : ./backup.sh --profile document --type incremental
+#
+# DÉPENDANCES :
+#   - tar : Création d'archives
+#   - gzip : Compression
+#   - md5sum : Calcul de checksum
+#   - lib/utils.sh : Fonctions utilitaires (logging, config, etc.)
+#
+# VARIABLES D'ENVIRONNEMENT :
+#   (aucune)
+#
+# CODES DE SORTIE :
+#   0 : Succès
+#   1 : Erreur (profil/type manquant, chemin invalide, etc.)
+#
+# NOTES :
+#   - Les logs sont consolidés par jour dans logs/backup_YYYY-MM-DD.log
+#   - Chaque backup génère un checksum MD5 pour vérification
+#   - Le fichier snap_<profil>.dat trace le dernier FULL (pour INC/DIFF)
+#   - Mode sûr (set -euo pipefail) : erreur = arrêt immédiat
+#
+################################################################################
+
 set -euo pipefail
 
 source lib/utils.sh

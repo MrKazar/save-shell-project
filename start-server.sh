@@ -1,7 +1,57 @@
 #!/bin/bash
-# =============================================================================
-# Start Script - Démarre le serveur Flask facilement
-# =============================================================================
+################################################################################
+# START-SERVER.SH - Démarrage du serveur Flask
+################################################################################
+#
+# DESCRIPTION :
+#   Lance le serveur Flask qui gère la synchronisation des backups.
+#   Vérifie automatiquement les dépendances (Flask).
+#   Crée les répertoires distants s'ils n'existent pas.
+#
+# USAGE :
+#   ./start-server.sh
+#
+# PARAMÈTRES :
+#   (aucun)
+#
+# EXEMPLES :
+#   ./start-server.sh
+#   # Le serveur démarre sur http://localhost:5000
+#
+# FONCTIONNEMENT :
+#   1. Vérifie que Python 3 est disponible
+#   2. Vérifie que Flask est installé
+#   3. Crée la structure des dossiers distants
+#   4. Lance l'application Flask (app.py)
+#   5. Serveur écoute sur localhost:5000
+#
+# ENDPOINTS DISPONIBLES :
+#   GET  /              - Informations API
+#   POST /upload        - Recevoir un backup
+#   GET  /list          - Lister tous les backups
+#   GET  /list/<type>   - Lister par type (FULL/INC/DIFF)
+#   GET  /stats         - Statistiques du serveur
+#   POST /verify        - Vérifier synchronisation
+#
+# ARRÊT DU SERVEUR :
+#   Ctrl+C dans le terminal
+#
+# DÉPENDANCES :
+#   - Python 3.6+
+#   - Flask
+#   - Werkzeug
+#
+# FICHIERS CRÉÉS :
+#   - serv/backup-server/remote_backups/FULL/
+#   - serv/backup-server/remote_backups/INC/
+#   - serv/backup-server/remote_backups/DIFF/
+#
+# NOTES :
+#   - Le serveur stocke les backups dans serv/backup-server/remote_backups/
+#   - Accès via http://localhost:5000 (local uniquement par défaut)
+#   - Pour accès distant, modifier app.py : app.run(host='0.0.0.0', ...)
+#
+################################################################################
 
 set -euo pipefail
 

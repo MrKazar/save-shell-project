@@ -1,7 +1,51 @@
 #!/bin/bash
-# =============================================================================
-# ARCHITECTURE ET FLUX DU SYSTÈME
-# =============================================================================
+################################################################################
+# ARCHITECTURE.SH - Documentation de l'Architecture Système
+################################################################################
+#
+# DESCRIPTION :
+#   Document explicatif montrant :
+#   - Flux de données du système complet
+#   - Architecture des composants
+#   - Types de backups et leur utilisation
+#   - Workflow local-serveur
+#   - Gestion des logs et métadonnées
+#
+# USAGE :
+#   ./ARCHITECTURE.sh       # Affiche la documentation
+#   ./ARCHITECTURE.sh | less # Avec pagination
+#
+# CONTENU :
+#   - Flux de données (backup → upload → serveur → restore)
+#   - Structure des composants locaux et distants
+#   - Stratégies de backup (FULL/INC/DIFF)
+#   - Gestion des sessions et logs
+#   - Métadonnées des archives
+#
+# SECTIONS :
+#   1. Flux de données complet
+#   2. Composants du système
+#   3. Types de backups
+#   4. Structure des logs
+#   5. Métadonnées et checksums
+#   6. Configuration avec profils YAML
+#   7. Sécurité et intégrité
+#
+# FICHIERS RÉFÉRENCÉS :
+#   - backup-system/backup.sh
+#   - backup-system/restore.sh
+#   - backup-system/upload.sh
+#   - backup-system/verify_sync.sh
+#   - backup-system/lib/utils.sh
+#   - serv/backup-server/app.py
+#   - backup-system/profiles/*.yaml
+#
+# POUR PLUS D'INFOS :
+#   Voir README.md pour vue complète
+#   Voir USAGE_GUIDE.md pour guide pratique
+#   Voir en-têtes des scripts bash pour documentation détaillée
+#
+################################################################################
 
 cat << 'EOF'
 

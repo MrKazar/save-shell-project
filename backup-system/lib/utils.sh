@@ -6,13 +6,15 @@ LOG_FILE=""
 LOG_DIR="logs"
 
 # =====================
-# Initialiser les logs (un fichier par jour)
+# Initialiser les logs (un fichier par jour, dans un dossier log_JJ_MM_AAAA)
 # =====================
 init_logs() {
     local script_name="$1"
     mkdir_safe "$LOG_DIR"
-    local today=$(date +%Y-%m-%d)
-    LOG_FILE="${LOG_DIR}/${script_name}_${today}.log"
+    local today_formatted=$(date +%d_%m_%Y)
+    local log_subdir="${LOG_DIR}/log_${today_formatted}"
+    mkdir_safe "$log_subdir"
+    LOG_FILE="${log_subdir}/${script_name}.log"
 }
 
 # =====================

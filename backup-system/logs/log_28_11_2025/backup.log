@@ -1,0 +1,30 @@
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-28 19:29:39 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-28 19:29:39 - Démarrage du backup - Profil: document, Type: full
+[INFO] 2025-11-28 19:29:39 - Source: ./document, Destination: ./backup
+[INFO] 2025-11-28 19:29:39 - Démarrage du backup FULL pour le profil document
+[SUCCESS] 2025-11-28 19:29:39 - Backup FULL terminé : full_2025-11-28_19-29-39.tar.gz
+[INFO] 2025-11-28 19:29:39 - Métadonnées créées : full_2025-11-28_19-29-39.tar.gz.meta.json
+[SUCCESS] 2025-11-28 19:29:39 - Backup terminé avec succès (logs : logs/log_28_11_2025/backup.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-28 19:29:57 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-28 19:29:57 - Démarrage du backup - Profil: document, Type: incremental
+[INFO] 2025-11-28 19:29:57 - Source: ./document, Destination: ./backup
+[INFO] 2025-11-28 19:29:57 - Démarrage du backup INCREMENTAL pour le profil document
+[SUCCESS] 2025-11-28 19:29:57 - Backup INCREMENTAL terminé : inc_2025-11-28_19-29-57.tar.gz
+[INFO] 2025-11-28 19:29:57 - Métadonnées créées : inc_2025-11-28_19-29-57.tar.gz.meta.json
+[SUCCESS] 2025-11-28 19:29:58 - Backup terminé avec succès (logs : logs/log_28_11_2025/backup.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-28 19:30:05 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-28 19:30:05 - Démarrage du backup - Profil: document, Type: diff
+[INFO] 2025-11-28 19:30:05 - Source: ./document, Destination: ./backup
+[INFO] 2025-11-28 19:30:05 - Démarrage du backup DIFFERENTIEL pour le profil document
+[INFO] 2025-11-28 19:30:06 - Métadonnées créées : diff_2025-11-28_19-30-05.tar.gz.meta.json
+[SUCCESS] 2025-11-28 19:30:06 - Backup DIFF terminé : diff_2025-11-28_19-30-05.tar.gz
+[SUCCESS] 2025-11-28 19:30:06 - Backup terminé avec succès (logs : logs/log_28_11_2025/backup.log)

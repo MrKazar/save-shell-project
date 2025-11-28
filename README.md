@@ -61,10 +61,18 @@ save-shell-project/
 │   │       └── diff_*.md5
 │   │
 │   └── logs/
-│       ├── backup_YYYY-MM-DD.log   # Logs consolidés par jour
-│       ├── restore_YYYY-MM-DD.log
-│       ├── upload_YYYY-MM-DD.log
-│       └── download_YYYY-MM-DD.log
+│       ├── log_25_11_2025/
+│       │   ├── backup.log
+│       │   ├── restore.log
+│       │   ├── upload.log
+│       │   ├── download.log
+│       │   └── verify.log
+│       ├── log_26_11_2025/
+│       │   ├── backup.log
+│       │   ├── restore.log
+│       │   └── ...
+│       └── log_28_11_2025/
+│           └── ...
 │
 ├── serv/
 │   ├── backup-server/              # Serveur Flask
@@ -110,19 +118,27 @@ Crée des archives tar.gz compressées avec métadonnées JSON.
 ---
 
 ### `restore.sh` - Restauration de Fichiers
-Restaure depuis les archives (complet ou sélectif).
+Restaure depuis les archives (complet, sélectif, ou par date).
 
 **Usage :**
 ```bash
-./restore.sh --profile <nom> [--file <fichier>] [--dry-run]
+./restore.sh --profile <nom> [--file <fichier>] [--date <YYYY-MM-DD>] [--dry-run]
 ```
 
 **Exemples :**
 ```bash
-./restore.sh --profile document                    # Restauration complète
-./restore.sh --profile document --file readme.txt  # Fichier spécifique
-./restore.sh --profile document --dry-run          # Mode test
+./restore.sh --profile document                           # Restauration complète
+./restore.sh --profile document --file readme.txt         # Fichier spécifique
+./restore.sh --profile document --date 2025-11-25         # État au 25 novembre
+./restore.sh --profile document --date 2025-11-25_14-30   # État à une heure précise
+./restore.sh --profile document --dry-run                 # Mode test
 ```
+
+**Restauration par Date :**
+- Format : `YYYY-MM-DD` ou `YYYY-MM-DD_HH-MM-SS`
+- Cherche le dernier FULL antérieur ou égal à la date
+- Applique les archives INC/DIFF suivantes jusqu'à la date
+- Permet de restaurer l'état du système à un moment donné
 
 **Recherche intelligente :**
 - Cherche le fichier par nom dans toutes les archives
@@ -297,18 +313,33 @@ Fonctions de configuration YAML simple :
 
 ### Organisation des Logs
 
-Les logs sont organisés **par jour** et **par script** :
+Les logs sont organisés **par jour** dans des dossiers dédiés :
 
 ```
 logs/
-├── backup_2025-11-25.log       ← Tous les backups du 25 nov
-├── restore_2025-11-25.log      ← Toutes les restaurations
-├── upload_2025-11-25.log       ← Uploads vers serveur
-├── download_2025-11-25.log     ← Downloads depuis serveur
-└── verify_sync_2025-11-25.log  ← Vérifications sync
+├── log_25_11_2025/
+│   ├── backup.log        ← Tous les backups du 25 nov
+│   ├── restore.log       ← Toutes les restaurations
+│   ├── upload.log        ← Uploads vers serveur
+│   ├── download.log      ← Downloads depuis serveur
+│   └── verify.log        ← Vérifications sync
+├── log_26_11_2025/
+│   ├── backup.log
+│   ├── restore.log
+│   ├── upload.log
+│   ├── download.log
+│   └── verify.log
+└── log_27_11_2025/
+    └── ...
 ```
 
-**Rotation automatique :** À minuit, un nouveau fichier est créé pour la journée.
+**Rotation automatique :** À minuit (00:00), un nouveau dossier `log_JJ_MM_AAAA` est créé automatiquement.
+
+**Avantages :**
+- Organisation claire par jour
+- Noms de fichiers simples (sans date)
+- Facile à archiver ou supprimer une journée
+- Chaque script a son propre fichier log
 
 ### Format des Logs
 

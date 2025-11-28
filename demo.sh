@@ -336,6 +336,28 @@ fi
 
 pause
 
+log_step "ÉTAPE 16 : Restauration depuis une date spécifique"
+
+log_info "Horodatage actuel des archives :"
+for type in FULL INC DIFF; do
+    if [[ -d "$DST_DIR/$type" ]]; then
+        echo "  $type :"
+        ls -1 "$DST_DIR/$type"/*.tar.gz 2>/dev/null | xargs -I {} basename {} | sed 's/.*_\([^.]*\).*/    \1/' || true
+    fi
+done
+
+log_info "Simulation de restauration depuis la dernière date..."
+LATEST_DATE=$(ls -1t "$DST_DIR/FULL"/*.tar.gz 2>/dev/null | head -1 | sed 's/.*full_\([^.]*\).*/\1/' || echo "2025-11-28_19-14-31")
+
+log_info "Date sélectionnée : $LATEST_DATE"
+log_info "Restauration depuis la date $LATEST_DATE..."
+
+./restore.sh --profile "$PROFILE" --date "$LATEST_DATE" --dry-run
+
+log_info "Restauration par date exécutée avec succès !"
+
+pause
+
 log_step "ÉTAPE 16 : Upload vers le serveur (optionnel)"
 
 read -p "Le serveur Flask est-il démarré ? (oui/non) : " SERVER_RUNNING
@@ -349,12 +371,18 @@ if [[ "$SERVER_RUNNING" == "oui" ]]; then
     log_info "Upload des backups vers le serveur..."
     ./upload.sh "$PROFILE" --all
     
+    log_info "Logs d'upload créés :"
+    ls -lh logs/log_*/*upload*.log 2>/dev/null | tail -5 || log_warn "Pas de logs d'upload trouvés"
+    
     pause
     
     log_step "ÉTAPE 17 : Vérification de la synchronisation"
     
     log_info "Vérification local <-> distant..."
     ./verify_sync.sh
+    
+    log_info "Logs de vérification créés :"
+    ls -lh logs/log_*/*verify*.log 2>/dev/null | tail -5 || log_warn "Pas de logs de vérification trouvés"
     
     pause
     
@@ -368,7 +396,7 @@ if [[ "$SERVER_RUNNING" == "oui" ]]; then
     log_step "ÉTAPE 19 : Test de téléchargement depuis le serveur"
     
     log_info "Sauvegarde des backups locaux..."
-    TEMP_BACKUP_DIR="/tmp/local_backups_$"
+    TEMP_BACKUP_DIR="/tmp/local_backups_$$"
     cp -r "$DST_DIR" "$TEMP_BACKUP_DIR"
     
     log_info "Suppression des backups locaux..."
@@ -391,6 +419,9 @@ if [[ "$SERVER_RUNNING" == "oui" ]]; then
     
     log_info "Téléchargement depuis le serveur..."
     ./download.sh "$PROFILE" --all
+    
+    log_info "Logs de téléchargement créés :"
+    ls -lh logs/log_*/*download*.log 2>/dev/null | tail -5 || log_warn "Pas de logs de téléchargement trouvés"
     
     log_info "Vérification des fichiers téléchargés..."
     echo "--- État après téléchargement ---"
@@ -415,17 +446,30 @@ fi
 
 pause
 
-log_step "ÉTAPE 20 : Logs générés"
+log_step "ÉTAPE 20 : Logs organisés par jour"
 
-echo "Les logs ont été enregistrés dans :"
-ls -lh logs/
+echo "Structure des logs créés :"
+tree logs/ 2>/dev/null || find logs/ -type f -printf '%P\n' | sort
 
-echo -e "\n${CYAN}Contenu du dernier log de backup :${NC}"
-tail -20 logs/backup_$(date +%Y-%m-%d).log
+echo -e "\n${CYAN}Exemple de contenu du dernier log de backup :${NC}"
+LATEST_BACKUP_LOG=$(find logs/log_*/ -name 'backup*.log' -type f | sort -r | head -1)
+if [[ -f "$LATEST_BACKUP_LOG" ]]; then
+    tail -15 "$LATEST_BACKUP_LOG"
+else
+    log_warn "Pas de log de backup trouvé"
+fi
+
+echo -e "\n${CYAN}Exemple de contenu du dernier log de restauration :${NC}"
+LATEST_RESTORE_LOG=$(find logs/log_*/ -name 'restore*.log' -type f | sort -r | head -1)
+if [[ -f "$LATEST_RESTORE_LOG" ]]; then
+    tail -15 "$LATEST_RESTORE_LOG"
+else
+    log_warn "Pas de log de restauration trouvé"
+fi
 
 pause
 
-log_step "FIN DE LA DÉMONSTRATION"
+log_step "ÉTAPE 21 : Résumé final
 
 echo -e "${GREEN}"
 cat << 'EOF'
@@ -438,6 +482,8 @@ cat << 'EOF'
 ║  ✓ Génération de métadonnées                                 ║
 ║  ✓ Restauration complète avec application des INC/DIFF       ║
 ║  ✓ Restauration sélective d'un fichier                       ║
+║  ✓ Restauration depuis une date spécifique                   ║
+║  ✓ Organisation des logs par jour (log_JJ_MM_AAAA)           ║
 ║  ✓ Upload vers serveur distant (optionnel)                   ║
 ║  ✓ Vérification de synchronisation (optionnel)               ║
 ║  ✓ Téléchargement depuis le serveur (optionnel)              ║
@@ -449,13 +495,26 @@ EOF
 echo -e "${NC}"
 
 echo -e "\n${CYAN}Commandes utiles :${NC}"
+echo "  # Backups"
 echo "  ./backup.sh --profile document --type full"
 echo "  ./backup.sh --profile document --type incremental"
+echo "  ./backup.sh --profile document --type diff"
+echo ""
+echo "  # Restauration"
 echo "  ./restore.sh --profile document"
 echo "  ./restore.sh --profile document --file fichier.txt"
+echo "  ./restore.sh --profile document --date 2025-11-28_19-14-31"
+echo ""
+echo "  # Serveur"
 echo "  ./upload.sh document --all"
 echo "  ./download.sh document --all"
 echo "  ./verify_sync.sh"
+echo "  ./verify_sync.sh --stats"
+echo ""
+echo "  # Nettoyage"
 echo "  ./clear_backups.sh"
 echo "  ./clear_remote_backups.sh"
+echo ""
+echo -e "${CYAN}Logs créés :${NC}"
+find logs/log_*/ -type f | head -10
 echo ""

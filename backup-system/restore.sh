@@ -13,6 +13,7 @@ log_session_start
 # =====================
 PROFILE=""
 FILE_TO_RESTORE=""
+RESTORE_DATE=""
 DRY_RUN=false
 
 while [[ $# -gt 0 ]]; do
@@ -23,6 +24,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         --file)
             FILE_TO_RESTORE="$2"
+            shift 2
+            ;;
+        --date)
+            RESTORE_DATE="$2"
             shift 2
             ;;
         --dry-run)
@@ -134,9 +139,77 @@ restore_file() {
 }
 
 # =====================
+# Restauration depuis une date spécifique
+# =====================
+restore_from_date() {
+    local target_date="$1"
+    local archive=""
+    
+    # Convertir la date en format YYYY-MM-DD_HH-MM-SS pour comparaison
+    # Format accepté : YYYY-MM-DD ou YYYY-MM-DD_HH-MM-SS
+    
+    log INFO "Recherche d'archives antérieures ou égales à : $target_date"
+    
+    # Chercher d'abord la dernière archive FULL antérieure à la date
+    for archive in $(ls -1tr "$DST_DIR/FULL"/*.tar.gz 2>/dev/null); do
+        [[ ! -f "$archive" ]] && continue
+        local archive_date=$(basename "$archive" | sed 's/full_\([^.]*\).*/\1/')
+        
+        # Comparer les dates (format YYYY-MM-DD_HH-MM-SS)
+        if [[ "$archive_date" < "$target_date" || "$archive_date" == "$target_date" ]]; then
+            log INFO "Archive FULL sélectionnée : $(basename "$archive") (date: $archive_date)"
+            restore_archive "$archive"
+            
+            # Ensuite appliquer les archives INC/DIFF antérieures à la date
+            for type in INC DIFF; do
+                [[ ! -d "$DST_DIR/$type" ]] && continue
+                for inc_archive in $(ls -1tr "$DST_DIR/$type"/*.tar.gz 2>/dev/null); do
+                    [[ ! -f "$inc_archive" ]] && continue
+                    local inc_date=$(basename "$inc_archive" | sed "s/${type,,}_\([^.]*\).*/\1/")
+                    
+                    if [[ "$inc_date" > "$archive_date" && ("$inc_date" < "$target_date" || "$inc_date" == "$target_date") ]]; then
+                        log INFO "Appliquer archive $type : $(basename "$inc_archive")"
+                        restore_archive "$inc_archive"
+                    fi
+                done
+            done
+            return 0
+        fi
+    done
+    
+    log ERROR "Aucune archive trouvée pour la date : $target_date"
+    exit 1
+}
+
+# =====================
+# Restaurer depuis une archive
+# =====================
+restore_archive() {
+    local archive="$1"
+    
+    if [[ "$DRY_RUN" = true ]]; then
+        log WARN "[DRY-RUN] Mode de test activé"
+        tar -tzf "$archive" | head -20
+        log INFO "[DRY-RUN] Aucun fichier n'a été restauré depuis $(basename "$archive")"
+    else
+        # Créer le dossier parent si nécessaire
+        mkdir_safe "$(dirname "$SRC_DIR")"
+        
+        if tar -xzf "$archive" -C "$(dirname "$SRC_DIR")" 2>/dev/null; then
+            log SUCCESS "Archive $(basename "$archive") restaurée avec succès"
+        else
+            log ERROR "Échec de la restauration depuis $(basename "$archive")"
+            return 1
+        fi
+    fi
+}
+
+# =====================
 # Main
 # =====================
-if [[ -n "$FILE_TO_RESTORE" ]]; then
+if [[ -n "$RESTORE_DATE" ]]; then
+    restore_from_date "$RESTORE_DATE"
+elif [[ -n "$FILE_TO_RESTORE" ]]; then
     restore_file "$FILE_TO_RESTORE"
 else
     restore_full

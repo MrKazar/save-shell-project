@@ -1,0 +1,40 @@
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-28 19:30:12 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-28 19:30:12 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-28 19:30:12 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-28 19:30:12 - Restauration complète depuis full_2025-11-28_19-29-39.tar.gz
+[WARN] 2025-11-28 19:30:12 - [DRY-RUN] Mode de test activé
+[INFO] 2025-11-28 19:30:12 - [DRY-RUN] Aucun fichier n'a été restauré.
+[SUCCESS] 2025-11-28 19:30:12 - Restauration terminée (logs : logs/log_28_11_2025/restore.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-28 19:30:17 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-28 19:30:17 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-28 19:30:17 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-28 19:30:17 - Restauration complète depuis full_2025-11-28_19-29-39.tar.gz
+[SUCCESS] 2025-11-28 19:30:17 - Restauration complète terminée.
+[SUCCESS] 2025-11-28 19:30:17 - Restauration terminée (logs : logs/log_28_11_2025/restore.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-28 19:30:22 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-28 19:30:22 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-28 19:30:22 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-28 19:30:22 - Recherche du fichier readme.txt dans les archives
+[INFO] 2025-11-28 19:30:22 - Fichier trouvé dans FULL : full_2025-11-28_19-29-39.tar.gz → document/readme.txt
+[SUCCESS] 2025-11-28 19:30:23 - Fichier document/readme.txt restauré avec succès
+[SUCCESS] 2025-11-28 19:30:23 - Restauration terminée (logs : logs/log_28_11_2025/restore.log)
+
+═══════════════════════════════════════════════════════════
+[SESSION] 2025-11-28 19:30:26 - Nouvelle session
+═══════════════════════════════════════════════════════════
+[INFO] 2025-11-28 19:30:26 - Démarrage de la restauration - Profil: document
+[INFO] 2025-11-28 19:30:26 - Source: ./document, Archives: ./backup
+[INFO] 2025-11-28 19:30:26 - Recherche d'archives antérieures ou égales à : 2025-11-28_19-29-39
+[INFO] 2025-11-28 19:30:26 - Archive FULL sélectionnée : full_2025-11-28_19-29-39.tar.gz (date: 2025-11-28_19-29-39)
+[WARN] 2025-11-28 19:30:26 - [DRY-RUN] Mode de test activé
+[INFO] 2025-11-28 19:30:26 - [DRY-RUN] Aucun fichier n'a été restauré depuis full_2025-11-28_19-29-39.tar.gz
+[SUCCESS] 2025-11-28 19:30:26 - Restauration terminée (logs : logs/log_28_11_2025/restore.log)

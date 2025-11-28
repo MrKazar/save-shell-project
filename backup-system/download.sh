@@ -93,11 +93,12 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SERVER_URL="${SERVER_URL:-http://localhost:5000}"
 BACKUP_DIR="${BACKUP_DIR:-$SCRIPT_DIR/backup}"
 BACKUP_TYPES=("FULL" "INC" "DIFF")
-LOG_DIR="${SCRIPT_DIR}/logs"
-LOG_FILE="${LOG_DIR}/download_$(date +%Y-%m-%d).log"
+LOG_BASE_DIR="${SCRIPT_DIR}/logs"
+LOG_DATE_DIR="${LOG_BASE_DIR}/log_$(date +%d_%m_%Y)"
+LOG_FILE="${LOG_DATE_DIR}/download.log"
 
-# Créer le dossier logs s'il n'existe pas
-mkdir -p "$LOG_DIR"
+# Créer le dossier logs et le dossier datéifié s'ils n'existent pas
+mkdir -p "$LOG_DATE_DIR"
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'

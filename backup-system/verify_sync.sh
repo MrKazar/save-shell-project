@@ -97,6 +97,11 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SERVER_URL="${SERVER_URL:-http://localhost:5000}"
 BACKUP_DIR="${BACKUP_DIR:-./backup}"
 BACKUP_TYPES=("FULL" "INC" "DIFF")
+LOG_DIR="${SCRIPT_DIR}/logs"
+LOG_FILE="${LOG_DIR}/verify_$(date +%Y-%m-%d).log"
+
+# Créer le dossier logs s'il n'existe pas
+mkdir -p "$LOG_DIR"
 
 # Couleurs
 RED='\033[0;31m'
@@ -110,23 +115,33 @@ NC='\033[0m'
 # Fonctions de logging
 # =============================================================================
 log_info() {
-    echo -e "${BLUE}[INFO]${NC}  $*"
+    local msg="$*"
+    echo -e "${BLUE}[INFO]${NC}  $msg"
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] [INFO] $msg" >> "$LOG_FILE"
 }
 
 log_success() {
-    echo -e "${GREEN}[SUCCESS]${NC} $*"
+    local msg="$*"
+    echo -e "${GREEN}[SUCCESS]${NC} $msg"
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] [SUCCESS] $msg" >> "$LOG_FILE"
 }
 
 log_error() {
-    echo -e "${RED}[ERROR]${NC} $*" >&2
+    local msg="$*"
+    echo -e "${RED}[ERROR]${NC} $msg" >&2
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] [ERROR] $msg" >> "$LOG_FILE"
 }
 
 log_warn() {
-    echo -e "${YELLOW}[WARN]${NC}  $*"
+    local msg="$*"
+    echo -e "${YELLOW}[WARN]${NC}  $msg"
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] [WARN] $msg" >> "$LOG_FILE"
 }
 
 log_detail() {
-    echo -e "${CYAN}  ➜${NC} $*"
+    local msg="$*"
+    echo -e "${CYAN}  ➜${NC} $msg"
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] [DETAIL] $msg" >> "$LOG_FILE"
 }
 
 # =============================================================================
